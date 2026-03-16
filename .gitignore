@@ -1,0 +1,23 @@
+### Example user template template
+### Example user template
+
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
+logs
+
+
+paper_work/imgs/hot
+paper_work/imgs/feature
+paper_work/imgs/21_training.tif
+paper_work/imgs/21_training_crop.tif
+paper_work/imgs/21_training_crop_crop.tif
+paper_work/images
+paper_work/csv
+
+Test/output
+Test/resources
+
+

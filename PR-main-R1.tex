@@ -1,0 +1,793 @@
+%% 
+%% Copyright 2007-2025 Elsevier Ltd
+%% 
+%% This file is part of the 'Elsarticle Bundle'.
+%% ---------------------------------------------
+%% 
+%% It may be distributed under the conditions of the LaTeX Project Public
+%% License, either version 1.3 of this license or (at your option) any
+%% later version.  The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 1999/12/01 or later.
+%% 
+%% The list of all files belonging to the 'Elsarticle Bundle' is
+%% given in the file `manifest.txt'.
+%% 
+%% Template article for Elsevier's document class `elsarticle'
+%% with numbered style bibliographic references
+%% SP 2008/03/01
+%% $Id: elsarticle-template-num.tex 272 2025-01-09 17:36:26Z rishi $
+%%
+% \documentclass[preprint,review,3p,times,sort]{elsarticle}
+\documentclass[times, review, 10pt]{elsarticle}
+
+%% Use the option review to obtain double line spacing
+%% \documentclass[authoryear,preprint,review,12pt]{elsarticle}
+
+%% Use the options 1p,twocolumn; 3p; 3p,twocolumn; 5p; or 5p,twocolumn
+%% for a journal layout:
+% \documentclass[final,1p,times]{elsarticle}
+% \documentclass[final,1p,times,twocolumn]{elsarticle}
+%% \documentclass[final,3p,times]{elsarticle}
+% \documentclass[final,3p,times,twocolumn]{elsarticle}
+%% \documentclass[final,5p,times]{elsarticle}
+% \documentclass[final,5p,times,twocolumn]{elsarticle}
+
+%% For including figures, graphicx.sty has been loaded in
+%% elsarticle.cls. If you prefer to use the old commands
+%% please give \usepackage{epsfig}
+
+%% The amssymb package provides various useful mathematical symbols
+\usepackage{amssymb}
+
+%% The amsmath package provides various useful equation environments.
+\usepackage{amsmath}
+%% The amsthm package provides extended theorem environments
+%% \usepackage{amsthm}
+\usepackage{caption}
+\usepackage{lineno} %% 增加行号
+\usepackage{color} % 字体颜色
+\usepackage{CJKutf8}
+% \captionsetup[figure]{name={Fig.},labelsep = period,labelfont={bf}}
+\captionsetup[figure]{name={Fig.},labelsep = period}
+%% The lineno packages adds line numbers. Start line numbering with
+%% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
+%% for the whole article with \linenumbers.
+%% \usepackage{lineno}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage[colorlinks=true, linkcolor=blue, citecolor=blue, urlcolor=blue]{hyperref}
+
+
+
+
+
+
+\journal{Pattern Recognition}
+
+\begin{document}
+\linenumbers  %% 增加行号
+\begin{CJK}{UTF8}{gbsn}
+\begin{frontmatter}
+
+%% Title, authors and addresses
+
+%% use the tnoteref command within \title for footnotes;
+%% use the tnotetext command for theassociated footnote;
+%% use the fnref command within \author or \affiliation for footnotes;
+%% use the fntext command for theassociated footnote;
+%% use the corref command within \author for corresponding author footnotes;
+%% use the cortext command for theassociated footnote;
+%% use the ead command for the email address,
+%% and the form \ead[url] for the home page:
+%% \title{Title\tnoteref{label1}}
+%% \tnotetext[label1]{}
+%% \author{Name\corref{cor1}\fnref{label2}}
+%% \ead{email address}
+%% \ead[url]{home page}
+%% \fntext[label2]{}
+%% \cortext[cor1]{}
+%% \affiliation{organization={},
+%%             addressline={},
+%%             city={},
+%%             postcode={},
+%%             state={},
+%%             country={}}
+%% \fntext[label3]{}
+
+\title{SFD-CAM: A Spatial-Frequency Domain Driven Framework for Multi-Task OCTA Image Segmentation}  
+
+%% use optional labels to link authors explicitly to addresses:
+%% \author[label1,label2]{}
+%% \affiliation[label1]{organization={},
+%%             addressline={},
+%%             city={},
+%%             postcode={},
+%%             state={},
+%%             country={}}
+%%
+%% \affiliation[label2]{organization={},
+%%             addressline={},
+%%             city={},
+%%             postcode={},
+%%             state={},
+%%             country={}}
+
+\author[1,2]{Junyang He}% 1, 2 代表属于这两个单位
+\ead{244506019@csu.edu.cn} % 邮箱
+\fnmark[1] % 第一作者
+\fntext[1]{https://orcid.org/0009-0005-5250-6593}
+
+\author[1]{Xiaoheng Deng\corref{cor1}}
+\cortext[cor1]{Corresponding author: Xiaoheng Deng, Xuanchu Duan, Xiangjian He}
+\ead{dxh@csu.edu.cn}
+\fnmark[2]
+\fntext[2]{https://orcid.org/0000-0003-2740-8025}
+
+\author[2]{Zhimin Liao}
+\ead{liao8220@foxmail.com}
+\fnmark[3]
+\fntext[3]{https://orcid.org/0000-0002-2775-8220}
+
+\author[1]{Pan Zhao}
+\ead{zhaopan_4@csu.edu.cn}
+\fnmark[4]
+\fntext[4]{https://orcid.org/0009-0000-3747-6334}
+
+\author[2]{Xuanchu Duan\corref{cor1}}
+% \cortext[cor2]{Corresponding author: Xiaoheng Deng}
+\ead{duanxchu@csu.edu.cn}
+\fnmark[5]
+\fntext[5]{https://orcid.org/0000-0002-3148-1703}
+
+\author[3]{Xiangjian He\corref{cor1}}
+% \cortext[cor3]{Corresponding author: Xiaoheng Deng}
+\ead{Sean.He@nottingham.edu.cn}
+\fnmark[6]
+\fntext[6]{https://orcid.org/0000-0001-8962-540X}
+
+
+% Address/affiliation
+\affiliation[1]{organization={School of Electronic Information},
+            addressline={Central South University}, 
+            city={Changsha},
+%          citysep={}, % Uncomment if no comma needed between city and postcode
+            postcode={410083}, 
+            country={China}}
+
+% Address/affiliation
+% 单位：
+% Aier Glaucoma Institute, Hunan Engineering Research Center for Glaucoma with Artificial Intelligence in Diagnosis and Application of New Materials, Changsha Glaucoma Diagnosis and Treatment Technology Innovation Center, Changsha Aier Eye Hospital, Changsha, Hunan Province, 410015, China.
+% 基金
+% 2023JJ70014, 23JCYBJC01590
+\affiliation[2]{organization={Glaucoma Institute},
+            addressline={Changsha Aier Eye Hospital}, 
+            city={Changsha},
+%          citysep={}, % Uncomment if no comma needed between city and postcode
+            postcode={410015}, 
+            country={China}}
+
+\affiliation[3]{organization={School of Computer Science},
+            addressline={University of Nottingham Ningbo China}, 
+            city={Ningbo},
+%          citysep={}, % Uncomment if no comma needed between city and postcode
+            postcode={315100}, 
+            country={China}}
+
+% Corresponding author text
+% \cortext[1]{Corresponding author}%Xiaoheng Deng. School of Electronic Information,Central South University, Changsha, 410083, China.}
+
+%% Author affiliation
+% \affiliation{organization={},%Department and Organization
+%             addressline={}, 
+%             city={},
+%             postcode={}, 
+%             state={},
+%             country={}}
+
+%% Abstract
+\begin{abstract}
+Optical coherence tomography angiography (OCTA) provides high-resolution and noninvasive visualization of retinal microcirculation, serving as an important tool for quantitative analysis and early diagnosis of fundus diseases. However, multi-structure OCTA segmentation remains challenging due to stripe noise introduced during 3D acquisition, topological complexity of microvascular networks, and prediction hallucinations caused by vessel dropout in pathological regions. To address these issues, we propose SFD-CAM, a spatial–frequency-driven context-aware segmentation model inspired by the physical principles of OCTA imaging. SFD-CAM, for the first time, systematically incorporates frequency-domain information into a multi-target segmentation framework to simultaneously segment capillaries, arteries, veins, and the FAZ through joint spatial–frequency modeling. The model first enhances spatial structural representation and suppresses stripe artifacts during 3D projection via dual-branch consistency-based collaborative learning and large-kernel convolution for receptive-field expansion. It then integrates Fourier-domain features into skip connections to achieve deep spatial–frequency collaboration, thereby improving the recovery of high-frequency microvascular details while filtering noise. Furthermore, we treat bottleneck features as local vascular vector fields and employ directional modeling together with a dynamic gating mechanism to enhance the discriminability of arterial–venous segmentation and preserve the topological continuity of vascular structures. Experimental results on the OCTA-500 dataset demonstrate that SFD-CAM achieves 82.67\% and 87.88\% mIoU on the two subsets, respectively, outperforming existing state-of-the-art methods in both capillary and arterial–venous segmentation tasks.
+\end{abstract}
+
+% Research highlights
+% \begin{highlights}
+% \item{SFD-CAM proposes spatial-frequency modeling for 3D OCTA segmentation.}
+% \item{Dual-branch projection module suppresses stripe artifacts in OCTA volumes.}
+% \item{Spatial-frequency demodulator enhances microvascular detail recovery.}
+% \item{Directional context modeling improves artery-vein discrimination.}
+% \item{Performance achieves 82.67\% and 87.88\% mIoU on OCTA-500, exceeding SOTA.}
+% \end{highlights}
+
+%%Graphical abstract
+% \begin{graphicalabstract}
+%\includegraphics{grabs}
+% \end{graphicalabstract}
+
+%% Keywords
+\begin{keyword}
+Retina OCTA segmentation\sep Multi-task segmentation\sep Frequency domain information learning\sep 3D to 2D compression
+\end{keyword}
+
+\end{frontmatter}
+
+%% Add \usepackage{lineno} before \begin{document} and uncomment 
+%% following line to enable line numbers
+%% \linenumbers
+
+\section{Introduction}\label{Introduction}
+% 眼睛是人体感知外界的重要器官，其健康状况直接影响个体的生活质量。随着现代社会用眼强度的持续增加，眼部疾病的发病率逐年上升，眼健康问题愈发受到关注。在眼科学临床实践中，对视网膜血管结构的定量分析是疾病诊断与评估的重要环节，因为多种疾病均会引起视网膜血管的形态和密度变化[21]。例如，糖尿病视网膜病变（DR）常导致毛细血管基底膜增厚和周细胞丢失，从而产生微动脉瘤、毛细血管闭塞及新生血管形成[22][23][27]；而在青光眼中，长期升高的眼压及局部灌注异常会造成视神经乳头周围毛细血管密度降低、微血管稀疏及灌注缺损，最终导致视神经纤维层受损与视野缺陷[24]。此外，在年龄相关性黄斑变性（AMD）和中央浆液性脉络膜视网膜病变（CSC）等疾病中，黄斑区血管形态与中央凹无血管区（FAZ）的改变同样具有重要诊断意义[25][26][8]。而OCTA影像能够提供这些关键的血管结构与灌注信息，从而支持对上述疾病的早期识别与定量评估[21][22][24]。因此，对OCTA影像的深入分析与自动化量化，对于提高眼科疾病的诊断准确性与效率具有重要的临床与研究价值。
+Vision is fundamental to quality of life, and the rising visual demands of modern society have led to an increasing prevalence of ocular diseases. In clinical ophthalmology, quantitative analysis of retinal vascular structures is an essential component of disease diagnosis and evaluation, as various diseases can induce changes in the morphology and density of retinal vessels~\cite{ref21}. For example, diabetic retinopathy (DR) often leads to capillary basement membrane thickening and loss of pericyte, resulting in microaneurysms, capillary occlusion, and neovascularization~\cite{ref23}. In glaucoma, long-term elevated intraocular pressure and localized perfusion abnormalities can cause reduced peripapillary capillary density, microvascular rarefaction, and perfusion defects, ultimately leading to damage to the retinal nerve fiber layer and loss of visual field~\cite{ref24}. In addition, in conditions such as age-related macular degeneration (AMD) and central serous chorioretinopathy (CSC), alterations in macular vascular morphology and the foveal avascular zone (FAZ) also have significant diagnostic value~\cite{ref25}. OCTA imaging provides these key vascular structural and perfusion features, thereby supporting early detection and quantitative assessment of the aforementioned diseases~\cite{ref22}. Therefore, in-depth analysis and automated quantification of OCTA images have substantial clinical and research value to improve the accuracy and efficiency of the diagnosis of ophthalmic disease.
+
+\par
+%光学相干断层扫描（Optical Coherence Tomography，OCT）是一种非接触、无创的高分辨率断层成像技术，能够生成视网膜组织的微米级横截面图像，为眼科疾病的结构性检测提供了重要手段 [29][30]。在此基础上发展而来的光学相干断层扫描血管造影（Optical Coherence Tomography Angiography，OCTA）是一种新兴的功能性成像技术，通过分析 OCT 信号随时间的变化来重建血流信息，从而在无需注射造影剂的情况下实现视网膜及脉络膜微循环系统的三维可视化 [31][32]。与传统的荧光素血管造影（FA）和吲哚菁绿血管造影（ICGA）相比，OCTA 具有非侵入性、成像速度快、可分层显示不同血管丛结构等优势，可提供对微血管、动静脉分布及中央凹无血管区（FAZ）的高分辨率结构与功能信息 [33][34]。使用计算机技术对 OCTA 影像进行分割，能够自动识别并提取视网膜不同层级的血管结构，定量分析血管密度、灌注区域及 FAZ 形态等关键指标 [35]，能为糖尿病视网膜病变（DR）、青光眼（Glaucoma）、年龄相关性黄斑变性（AMD）及中央浆液性脉络膜视网膜病变（CSC）等疾病提供客观的量化依据 [36][37]。
+Optical coherence tomography (OCT) is a non-contact, non-invasive, high-resolution tomographic imaging technique capable of generating micron-level cross-sectional images of retinal tissue, providing an important approach for structural detection of ocular diseases~\cite{ref30}. Building on this technology, optical coherence tomography angiography (OCTA) is an emerging functional imaging method that reconstructs blood flow information by analyzing temporal variations in OCT signals, enabling three-dimensional visualization of the retinal and choroidal microcirculation without the need for injected contrast agents~\cite{ref31}. Compared with traditional fluorescein angiography (FA) and indocyanine green angiography (ICGA), OCTA offers advantages such as non-invasiveness, rapid imaging, and the ability to display different vascular plexuses in a layer-resolved manner, providing high-resolution structural and functional information on microvasculature, arterial–venous distributions, and the FAZ~\cite{ref33}. Using computational methods to segment OCTA images enables automated identification and extraction of vascular structures across different retinal layers and supports quantitative analysis of key metrics such as vessel density, perfusion areas, and FAZ morphology~\cite{ref35}, thereby providing objective quantitative evidence for diseases such as diabetic retinopathy (DR), glaucoma, age-related macular degeneration, and central serous chorioretinopathy~\cite{ref36}.
+\par
+% 早期的OCTA分割研究主要依赖于传统的机器学习技术，包括自适应阈值分割、支持向量机和基于滤波器的方法。然而，这些方法依赖于手工特征提取，这限制了它们在OCTA图像中捕获复杂而微妙的血管模式的能力。随着深度学习的兴起，卷积神经网络，特别是U-Net，由于其有效的编码器-解码器结构和跳过连接，已成为OCTA分割的基线框架。早期的研究主要集中在从2D OCTA投影图像中分割大血管上；然而，在压缩3D体积数据时，这种投影不可避免地会遭受空间信息丢失。OCTA-500数据集的发布使人们的注意力转向了直接从3D体积中学习投影方向分割。在此背景下，Li等人提出了图像投影网络（IPN），该网络在保留空间线索的同时，有效地将3D特征投影到2D表示中。最近，研究已经从单目标发展到多目标分割，例如CAVF任务，它将毛细血管、动脉、静脉和FAZ整合到一个统一的框架中。尽管取得了这些进步，但现有的3D-2D投影方法通常依赖于简单的池化或卷积操作，这往往无法将血管结构与投影诱导的条纹伪影区分开来（见 fig 1），导致结构不连续和空间信息丢失。
+\textcolor{blue}{Early OCTA segmentation studies mainly relied on traditional machine learning techniques, including adaptive thresholding~\cite{ref3}, support vector machines~\cite{ref1}, and filter-based methods~\cite{ref2}. However, these approaches depend on handcrafted feature extraction, which limits their ability to capture complex and subtle vascular patterns in OCTA images. With the rise of deep learning, convolutional neural networks, particularly U-Net, have become the baseline framework for OCTA segmentation due to their effective encoder–decoder structure and skip connections. Early studies primarily focused on large-vessel segmentation from 2D OCTA projection images~\cite{ref4}; however, such projections inevitably suffer from spatial information loss when compressing 3D volumetric data. The release of the OCTA-500 dataset~\cite{ref5} has shifted attention toward learning projection-direction segmentation directly from 3D volumes. In this context, Li et al. proposed the Image Projection Network (IPN), which efficiently projects 3D features into 2D representations while preserving spatial cues. More recently, research has evolved from single-target to multi-target segmentation, such as the CAVF task~\cite{ref5}, which integrates capillaries, arteries, veins, and the FAZ into a unified framework. Despite these advancements, existing 3D-to-2D projection methods typically rely on simple pooling or convolution operations, which often fail to distinguish vascular structures from projection-induced stripe artifacts (see (a) in \hyperref[img1]{Fig. \ref*{img1}}), leading to structural discontinuities and spatial information loss}.
+\par
+% 为了应对这些挑战，有必要从OCTA成像物理的角度重新审视特征建模策略。OCTA从根本上依赖于相干光干涉信号的频域分析来重建组织深度散射分布，这意味着其图像固有地编码了空间结构信息和频域特征。如fig 1 (b)所示，频域增强可以有效地抑制伪影和噪声。这种有效性可以用OCTA成像的固有频率特性来解释：由于OCTA通过干涉信号的频域分析重建深度信息，因此结构信息和成像伪影在频谱中是固有可分离的。此外，细毛细血管通常对应于高频成分，而大血管和FAZ边界对应于中低频结构。然而，现有的方法主要在空间域中建模特征，而忽略了频域先验。这种疏忽导致微血管细节的恢复不足，对噪声的敏感性提高。此外，受眼部疾病影响的视网膜结构非常复杂和多变，特别是在微血管水平。例如，青光眼可导致广泛的毛细血管变性，在OCTA图像中可能表现为没有任何可辨别结构的区域。当模型试图在这些区域进行预测时，它们可能会根据从先前样本中学习到的特征错误地解释空白区域，从而导致幻觉效应和不准确的分割结果。此外，对于多目标CAVF任务，标准卷积算子是基于标量的，缺乏捕获血管方向性和拓扑的明确机制。这种限制通常会导致血管断裂和动脉和静脉分支之间的混淆，特别是在复杂的病理区域。
+\textcolor{blue}{To address these challenges, it is essential to revisit the feature modeling strategy from the perspective of OCTA’s imaging physics. OCTA fundamentally relies on frequency-domain analysis of coherent light interference signals to reconstruct tissue depth scattering distributions, meaning that its images inherently encode both spatial structural information and frequency-domain features. As illustrated in (b) in \hyperref[img1]{Fig. \ref*{img1}}, , frequency-domain enhancement can effectively suppress artifacts and noise. This effectiveness can be explained by the inherent frequency characteristics of OCTA imaging: since OCTA reconstructs depth information through frequency-domain analysis of interferometric signals, structural information and imaging artifacts are inherently separable in the frequency spectrum. Moreover, fine capillaries typically correspond to high-frequency components, while large vessels and FAZ boundaries correspond to mid- to low-frequency structures. However, existing methods predominantly model features in the spatial domain while neglecting this frequency-domain prior. This oversight results in insufficient recovery of microvascular details and heightened sensitivity to noise. Additionally, retinal structures affected by ocular diseases are highly complex and variable, particularly at the microvascular level. For example, glaucoma can cause extensive capillary degeneration, which may appear as regions without any discernible structures in OCTA images. When models attempt to predict in such areas, they may erroneously interpret blank regions based on features learned from prior samples, leading to hallucination effects and inaccurate segmentation results. Furthermore, for the multi-target CAVF task, standard convolutional operators are scalar-based and lack explicit mechanisms to capture vascular directionality and topology. This limitation often results in vessel fragmentation and confusion between arterial and venous branches, particularly in complex pathological regions.}
+
+\begin{figure}[tbp]
+    \centering
+    % \includegraphics[width=7in]{fig-module.png}
+    \includegraphics[width=0.77\linewidth]{1.pdf}
+    \caption{(a) Numerous stripe-like artifacts exist in 3D OCTA segmentation. (b) Incorporating frequency-domain information from the Fourier transform into OCTA segmentation can effectively suppress noise and artifacts.}
+    \label{img1}
+\end{figure}
+
+% 基于上述挑战，本研究的主要目的是开发一个空间-频率域协作框架，用于OCTA图像中的精确多结构分割。具体而言，这项工作追求以下目标：（1）设计一种投影机制，该机制能够保留3D OCTA体积的结构信息，同时抑制3D-To-2D压缩过程中的条纹伪影。（2）引入空间-频率协同特征建模，将傅里叶域信息整合到深度分割网络中，以改善微血管结构的恢复。（3）通过结合方向感知结构上下文建模来增强动静脉鉴别和血管拓扑结构保存。
+\textcolor{blue}{Based on the above challenges, the primary aim of this study is to develop a spatial–frequency domain collaborative framework for accurate multi-structure segmentation in OCTA images. Specifically, this work pursues the following objectives: (1) To design a projection mechanism capable of preserving structural information from 3D OCTA volumes while suppressing stripe artifacts during the 3D-to-2D compression process. (2) To introduce spatial–frequency collaborative feature modeling that integrates Fourier-domain information into deep segmentation networks for improved recovery of microvascular structures. (3) To enhance artery–vein discrimination and vascular topology preservation by incorporating direction-aware structural context modeling.}
+
+\par
+% 基于此，我们提出了一种空间频域驱动的上下文感知分割网络（SFD-CAM），旨在实现符合成像机制的双域信息协同建模。我们的动机如下：(1) 视网膜微血管网络具有层级分明、多尺度及强拓扑连续性的特点，而三维OCTA卷中常伴随显著的条纹噪声。直接对体积卷进行压缩投影容易造成空间信息损失。为此，我们设计了双分支一致性协同的大核投影模块，通过多尺度建模与一致性学习策略增强跨层结构依赖，并通过大核卷积扩展感受野以提升空间表征能力。(2) 由于OCTA深度反射信息是通过对干涉信号在频率域中的解码获得的，因此在分割阶段显式引入频率域建模能更好地恢复组织结构真实边界。基于此，我们提出空间频率域自注意力解调器，在跳跃连接中融合空间域与频域特征，使模型在特征重建阶段同时具备空间细节敏感性与频率结构感知能力。(3) OCTA 血管具有方向性与拓扑连续性，因此仅依赖标量卷积难以准确建模其走向关系。我们进一步提出方向感知的结构上下文建模模块，将通道特征视作隐式方向载体，模拟血管矢量场分布，从而提升微血管与动静脉结构的分割准确性。
+Based on this insight, we propose a Spatial–Frequency Domain Driven Context-Aware Model (SFD-CAM), designed to achieve dual-domain information modeling consistent with the imaging mechanism. Our motivations are as follows: (1) The retinal microvascular network exhibits hierarchical, multi-scale, and strongly topologically continuous characteristics, while 3D OCTA volumes are often accompanied by significant stripe noise. Direct compression projection of the volumetric data can easily lead to loss of spatial information. To address this, we design a dual-branch consistency-driven large-kernel projection module, which enhances cross-layer structural dependencies through multi-scale modeling and consistency learning, and expands the receptive field via large-kernel convolutions to improve spatial representation capability. (2) Since OCTA depth reflection information is obtained by decoding interference signals in the frequency domain, explicitly incorporating frequency-domain modeling during segmentation can better recover the true boundaries of tissue structures. Accordingly, we introduce a spatial–frequency self-attention demodulator, which fuses spatial and frequency-domain features in skip connections, enabling the model to possess both spatial detail sensitivity and frequency-structure awareness during feature reconstruction. (3) OCTA vessels have inherent directionality and topological continuity, making scalar convolutions insufficient for accurately modeling their orientation relationships. We further propose a direction-aware structural context modeling module, which treats channel features as implicit direction carriers to simulate the vascular vector field distribution, thereby improving segmentation accuracy for microvascular and artery–vein structures.
+\par
+
+
+% 综上所述，我们研究主要贡献可归纳如下:
+In summary, the main contributions of this study can be summarized as follows:
+% 1. 本研究提出了一种空间频域驱动的上下文感知网络（SFD-CAM），基于 OCTA 成像的频域特性实现空间域与频率域的联合建模，可同时完成毛细血管、动脉、静脉和 FAZ 的多结构分割。
+% 2. 我们设计协同一致性大核投影模块，增强三维体积卷的空间结构表达并抑制条带伪影；同时引入方向感知的结构上下文建模策略，利用血管的方向连续性特征提升血管结构的分割精度。
+% 3. 基于 OCTA 深度反射信息由频域解码获得的成像原理，提出空间频率域自注意力解调器，在特征融合阶段实现对空间域特征与频率域特征的双域协同感知，提高结构边界恢复能力与噪声稳健性。
+% 4. 所提方法在OCTA-500 数据集的两个子集上分别取得82.67%和87.88%的平均交并比，验证了所提出方法在多目标OCTA分割任务中的准确性与可靠性。
+\begin{itemize}
+    \item{This study proposes SFD-CAM, which leverages the frequency-domain characteristics of OCTA imaging to jointly model spatial and frequency domains, enabling simultaneous multi-structure segmentation of capillaries, arteries, veins, and the FAZ.
+    }
+    \item{We design a consistency-driven large-kernel projection module to enhance spatial structural representation in 3D volumetric data while suppressing stripe artifacts. Additionally, a direction-aware structural context modeling strategy is introduced to exploit the directional continuity of vessels and improve segmentation accuracy of vascular structures.
+    }
+    \item{Based on the imaging principle that OCTA depth reflection information is decoded from the frequency domain, we propose a spatial–frequency self-attention demodulator, which enables dual-domain collaborative perception of spatial and frequency features during feature fusion, enhancing structural boundary recovery and noise robustness.
+    }
+    \item{The proposed method achieves mean Intersection over Union (mIoU) scores of 82.67\% and 87.88\% on the two subsets of the OCTA-500 dataset, demonstrating its accuracy and reliability in multi-target OCTA segmentation tasks.
+    }
+\end{itemize}
+\section{Related Works}\label{Related Works}
+Currently, deep learning–based OCTA image segmentation techniques and frequency-domain information learning methods using Fourier transforms have developed rapidly. To better understand the research background of existing approaches, this chapter provides a brief review of OCTA automatic segmentation methods and related progress in frequency-domain information learning.
+\subsection{OCTA Automatic Segmentation}
+
+
+
+% 随着光学相干断层扫描血管造影（OCTA）技术的不断成熟，越来越多的研究者开始聚焦于OCTA影像结构的自动分割研究。近年来，多个高质量OCTA数据集相继被提出并公开，为分割算法的开发与验证提供了重要支撑。同时，分割目标也从早期的单一结构逐步扩展至多结构任务，如视网膜毛细血管复合体（RC）、动脉（RA）、静脉（RV）以及中央无血管区（FAZ）等。这些结构的精确自动分割与量化对于理解眼部病变机制和辅助临床决策具有重要意义。例如，文献[7]公开了一个新的OCTA数据集——ROSE，并提出了OCTA-Net模型，采用基于分裂结构的双阶段分割策略，实现了粗、细两类视网膜血管的同时分割。Gao 等人[8]提出了CAVNet，可在蒙太奇宽场OCTA图像中有效区分动脉与静脉。Wang 等人[9]构建了由专业眼科医生标注的四个大规模OCTA图像数据集，并提出了COIPS框架，实现了从图像质量评估到FAZ分割与定量分析的全流程自动化。
+With advances in OCTA technology, automatic segmentation of retinal structures has attracted increasing attention. Recent high-quality datasets have enabled development and validation of algorithms targeting multiple structures, including the retinal capillary complex, arteries, veins, and the FAZ. Accurate segmentation and quantification of these structures are essential for understanding ocular disease mechanisms and supporting clinical decisions. For instance, ROSE~\cite{ref7} introduced a split-structure two-stage OCTA-Net for coarse-to-fine vessel extraction, Gao et al.~\cite{ref8} proposed CAVNet to distinguish arteries and veins in wide-field OCTA, and Wang et al.~\cite{ref9} developed COIPS, a fully automated pipeline spanning image quality assessment to FAZ segmentation using four large-scale annotated datasets.
+\par
+% 上述研究多基于二维投影图像展开，而近年来，研究重点逐渐转向三维OCTA影像的多目标分割任务。Li 等人[10]提出了IPN模型，利用单向池化层在三维OCTA影像中实现特征选择与降维；其后续工作[5]不仅开源了首个三维OCTA影像数据集，还提出了快速投影模块（FPM），能够高效地将三维特征压缩至二维空间，并首次提出CAVF任务，实现对微血管、动脉、静脉及FAZ的联合分割。Yang 等人[12]提出ODDF-Net，引入光密度概念生成额外输入以实现多模态融合，从而增强了动静脉区分的特异性。Cao 等人[13]提出H2C-Net，通过将OCTA体积数据的高度信息转化为通道信息进行补充，有效提升了毛细血管区域的分割精度。同时，一些半监督的方法也被提出[53,54],分别从拓扑一致性角度提供约束，以及通过捕捉全局、局部和垂直特征来清晰成像。
+Most of the aforementioned studies are based on 2D projection images, whereas in recent years, research has increasingly shifted toward multi-target segmentation of 3D OCTA volumes. Li et al.~\cite{ref10} proposed the IPN model, which employed unidirectional pooling layers to perform feature selection and dimensionality reduction in 3D OCTA data. Their subsequent work~\cite{ref5} not only released the first publicly available 3D OCTA dataset but also introduced the Fast Projection Module (FPM), which efficiently compressed 3D features into 2D space, and for the first time defined the CAVF task, enabling joint segmentation of microvessels, arteries, veins, and the FAZ. Yang et al.~\cite{ref12} proposed ODDF-Net, which incorporated the concept of optical density to generate additional inputs for multimodal fusion, thereby enhancing the specificity of artery–vein discrimination. Cao et al.~\cite{ref13} introduced H2C-Net, which supplemented OCTA volumetric features by converting height information into channel representations, effectively improving segmentation accuracy in capillary regions. At the same time, two semi-supervised methods have been proposed. One introduces constraints from the perspective of topological consistency~\cite{ref53}. The other improves image clarity by capturing global, local, and vertical features~\cite{ref54}.
+\par
+% 然而，尽管上述方法在精度与多任务能力上取得了显著进展，它们普遍忽视了OCTA影像中普遍存在的条纹伪影与噪声问题。这些伪影严重干扰了微血管区域的分割准确性，仍是当前OCTA分割领域亟待解决的关键挑战。
+Despite the notable progress, these methods have achieved in accuracy and multi-task capability. However, they generally overlook the stripe artifacts and noise that are pervasive in OCTA imaging. These artifacts severely hinder the segmentation accuracy in microvascular regions and remain a critical challenge that must be addressed in current OCTA segmentation research.
+
+\subsection{Learning frequency-domain information from the Fourier transform}
+% 长期以来，频域分析一直是信号处理的重要基石[11]。其中，傅里叶变换作为典型的时频分析工具，可将信号从时域映射至频域，从而提取其在频率维度上的特征。由于图像在傅里叶空间中具备捕获全局结构与抑制噪声的优势，频域特征近年来受到了广泛关注。随着深度学习的发展，傅里叶频率信息逐渐被引入神经网络中，用于增强模型的特征表达能力。在遥感领域，Yao等人[14]提出双域特征融合网络（DFFN），利用傅里叶变换在频域高效建模全局信息，将低光增强任务分解为幅度恢复与相位细化两个阶段；Sun等人[15]设计分解频率预测网络（Depo-Net），通过频域自注意力和双编码器结构实现高效语义提取，并引入时频协同调制机制以抑制散斑噪声。在超分辨率领域，Tan等人[16]提出FSDFF模型，通过频域分支提取全局信息、空间域分支保留局部结构，实现两者互补融合，从而提升光谱重建精度。在医学影像领域，Gu等人[17]提出ASFE-Fusion模型，通过自适应频率融合在频域层面补充全局信息，并与局部特征融合以缓解影像强度失真；Shao等人[18]提出AFPNet，利用自适应频率加权机制优化高低频特征融合。此外，频域信息还被应用于伪装目标检测[19]和卷积模块改进[20]等方向。
+Frequency-domain analysis has long been a cornerstone of signal processing~\cite{ref11}, with the Fourier transform enabling extraction of frequency-specific features and facilitating global structure capture and noise suppression. With deep learning, Fourier-based features have been increasingly integrated into neural networks to enhance representation. In remote sensing, Yao et al.~\cite{ref14} proposed DFFN for global modeling and low-light enhancement via amplitude and phase decomposition, while Sun et al.~\cite{ref15} introduced Depo-Net, employing frequency-domain self-attention and dual-encoder structures with time–frequency collaborative modulation to suppress speckle noise. In super-resolution, Tan et al.~\cite{ref16} fused spatial and frequency branches to complement local and global information, and in medical imaging, Gu et al.~\cite{ref17} and Shao et al.~\cite{ref18} leveraged adaptive frequency fusion and weighting to enhance feature integration and mitigate intensity distortions. Frequency-domain approaches have also been applied to camouflage detection~\cite{ref19} and convolutional module improvements~\cite{ref20}.
+\par
+% 尽管频域信息学习在深度学习中已展现出较高的潜力，但在OCTA自动分割领域尚未有相关研究。鉴于OCTA成像过程与频域特性之间存在天然联系，频域信息学习在该任务中具有独特优势。基于此，我们提出融合空间域与频域特征的联合驱动方法，以增强OCTA影像结构的分割能力。
+Although frequency-domain feature learning has demonstrated strong potential in deep learning, it has not yet been explored in the field of automatic OCTA segmentation. Given the inherent relationship between OCTA imaging and its underlying frequency-domain characteristics, integrating frequency-domain learning offers distinct advantages for this task. Motivated by this observation, we propose a jointly driven approach that fuses spatial-domain and frequency-domain features to enhance the segmentation of structural information in OCTA images.
+
+\section{Proposed Method}\label{Proposed Method}
+% In this chapter, we provide a detailed description of the proposed method and explain the loss functions employed.
+
+\textcolor{blue}{In this chapter, we provide a detailed description of the proposed method and explain the loss functions employed. Specifically, this study tackles the multi-task OCTA segmentation problem, where the input is a 3D OCTA volumetric scan and the output is a pixel-wise segmentation map simultaneously delineating four target structures: capillaries, arteries, veins, and the FAZ.}
+
+
+\subsection{Overall Architecture}
+
+\begin{figure*}[tbp]
+    \centering
+    % \includegraphics[width=7in]{fig-module.png}
+    \includegraphics[width=1\linewidth]{2.pdf}
+    \caption{The overall architecture of SFD-CAM: (a) the projection process of the 3D OCTA volume; (b) the model optimization pipeline through the loss function, which backpropagates to the SFD-Former 2D segmentation model; (c) the spatial–frequency self-attentive demodulator performing spatial–frequency fusion; and (d) the overall architecture of SFD-Former.}
+    \label{img2}
+\end{figure*}
+
+% 在本文中，我们提出了一种空间-频率域驱动上下文感知模型（Spatial-Frequency Domain Driven Context-Aware Model, SFD-CAM），旨在充分融合OCTA体积数据中蕴含的丰富空间结构信息与频域特征表示，并将其引入OCTA结构的分割框架中。整体框架如图2所示，方法主要由两个核心部分组成：三维体积投影模块与二维图像分割模块。
+In this study, we propose SFD-CAM, designed to fully integrate the rich spatial structural information and frequency-domain representations inherent in OCTA volumetric data and incorporate them into an OCTA structural segmentation framework. As illustrated in \hyperref[img2]{Fig. \ref*{img2}}, the overall architecture consists of two core components: a 3D volumetric projection module and a 2D image segmentation module.
+\par
+% 在3D体积投影过程中，引入了一种具有一致性感知能力的协同学习机制，该机制能够确保双分支特征之间的对比性约束得到有效满足，并促进它们之间的交互式融合，从而实现多尺度、多粒度的注意力建模。同时，还采用了大核卷积结构来扩展特征感知范围，使模型能够捕捉更广泛的上下文关系及拓扑结构信息，进而提升投影后3D特征的结构一致性与区分能力。
+During 3D volumetric projection, a consistency-aware co-learning mechanism is introduced to enforce contrastive constraints and interactive fusion between dual-branch features, enabling multi-scale, multi-granularity attention modeling. In parallel, large-kernel convolutions are employed to expand the receptive field, capturing broader contextual and topological dependencies, thereby enhancing structural consistency and discriminability of the projected 3D features.
+\par
+% 在二维分割阶段，我们将空间频率域自注意力解调器嵌入到跳跃连接中，从而实现空间特征与频率特征的联合融合。通过频率域调制以及矩阵乘法所带来的空间交互作用，该解调器能够帮助网络同时捕捉局部纹理信息与全局频率特征。此外，我们在网络的关键节点引入了方向感知结构上下文建模模块，该模块能够将高维通道特征解读为局部血管矢量场，从而明确地模拟方向信息，进而提升血管拓扑结构的分割精度以及动脉与静脉之间的区分能力。
+In the 2D segmentation stage, we embed a Spatial Frequency-domain Self-Attention Demodulator (SFAD) into skip connections to enable joint spatial–frequency feature fusion. Through frequency-domain modulation and spatial interaction via matrix multiplication, SFAD guides the network to capture both local textures and global frequency cues. Furthermore, we introduce a Directional-Aware Structural Context Modeling module (DSCM) at the bottleneck, which interprets high-dimensional channel features as a local vascular vector field, explicitly modeling orientation information to enhance vascular topology segmentation and arterial–venous differentiation.
+\par
+% 综上所述，我们将三维体积投影部分命名为协同一致性大核投影模块(CCPM)，二维图像分割部分命名为SFD-Former。其中，CCPM以三维OCTA体积作为输入，输出二维特征图；SFD-Former接收该二维特征并生成最终的OCTA血管结构分割结果。
+In summary, we refer to the 3D volumetric projection component as the Collaborative Consistency Large-Kernel Projection Module (CCPM) and the 2D image segmentation component as SFD-Former. Specifically, CCPM takes the 3D OCTA volume as input and outputs a 2D feature map, while SFD-Former processes this 2D representation to generate the final OCTA vascular structure segmentation results.
+\par
+\subsection{Image Fourier Transform}
+% 傅里叶变换（Fourier Transform, FT）是信号与图像处理领域中最基本且最重要的数学工具之一[38]。它能够将信号从空间域转换到频率域，使得图像信息以频率分量的形式表达。空间域的像素值反映图像的局部亮度与灰度变化，而频率域的表示可以反馈图像灰度变化的速率和方向特征[41]。在图像处理中，傅里叶变换使得研究者能够从频率角度分析图像结构，例如高频部分对应边缘与纹理细节，低频部分对应整体亮度与轮廓信息[39]。
+The Fourier Transform (FT) is a fundamental tool in signal and image processing~\cite{ref38}, enabling the conversion of spatial-domain signals into frequency-domain representations. While spatial-domain pixels describe local intensity variations, the frequency domain characterizes the rate and directional patterns of these variations~\cite{ref41}. In image analysis, FT provides a complementary perspective in which high-frequency components capture edges and textures, whereas low-frequency components encode global brightness and structural contours~\cite{ref39}.
+\par
+% 在深度卷积神经网络中，卷积层的输出通常为多通道特征图，每个通道代表网络在特定感受野或卷积核下提取的响应特征。对于多通道图像，傅里叶变换将单独应用于每个通道，分析或建模这些特征的分布特性。设I\in\mathbb{R}^{C\times H\times W}为特征图，其中C为通道数，H和W分别为空间维度。对于每个通道c\in{1,2,\ldots,C}，其二维傅里叶变换\mathcal{F}(\cdot)定义为：
+In deep convolutional neural networks, the output of a convolutional layer typically consists of multichannel feature maps, where each channel represents the network’s response to specific receptive fields or convolutional kernels. For multichannel images, the Fourier Transform is applied independently to each channel to analyze or model the distribution characteristics of these features. Let $I \in \mathbb{R}^{C \times H \times W}$ denote the feature map, where $C$ is the number of channels and $ H $ and $ W $ are the spatial dimensions. For each channel $ c \in \{1, 2, \ldots, C\} $, its two-dimensional Fourier Transform $ \mathcal{F}(\cdot) $ is defined by:
+\begin{equation}
+\mathcal{F}_c(u,v)=\sum_{x=0}^{H-1}\ \sum_{y=0}^{W-1}\ f_c(x,y)e^{-j2\pi(\frac{ux}{H}+\frac{vy}{W})},
+\end{equation}
+% 得到的频域表示可记为：
+and the resulting frequency-domain representation can be written as:
+\begin{equation}
+\mathcal{F}=\{\mathcal{F}_1,\mathcal{F}_2,\ldots,\mathcal{F}_C\}\in\mathbb{C}^{C\times H\times W},
+\end{equation}
+% 其中f_c(x,y)表示第c个通道在空间域的像素强度，\mathcal{F}_c(u,v) 为频率域的复数谱，(u,v) 为频率坐标，j为虚数单位(j^2=-1)。其逆变换\mathcal{F}^{-1}(\cdot)定义为：
+where $ f_c(x, y) $ denotes the spatial-domain pixel intensity of the $ c $-th channel, $ \mathcal{F}_c(u, v) $ represents the complex-valued spectrum in the frequency domain, $ (u, v) $ are the frequency coordinates, and $ j $ is the imaginary unit $(j^2 = -1)$. The inverse transform $ \mathcal{F}^{-1}(\cdot) $ is defined by:
+\begin{equation}
+f_c(x,y)=\frac{1}{HW}\sum_{u=0}^{H-1}\ \sum_{v=0}^{W-1}\ \mathcal{F}_c(u,v)e^{j2\pi(\frac{ux}{H}+\frac{vy}{W})}.
+\end{equation} \par
+% 在实际实现中，常通过对每个通道独立执行快速傅里叶变换（FFT）[40]来获得频域特征。由于 \mathcal{F}(u,v)为复数形式，通常使用其幅度谱与相位谱来表示频率特性：
+In practical implementation, frequency-domain features are typically obtained by applying the Fast Fourier Transform (FFT) independently to each channel~\cite{ref40}. Since $ \mathcal{F}(u, v) $ is complex-valued, its frequency characteristics are usually represented using the amplitude spectrum and phase spectrum as:
+\begin{equation}
+\begin{split}
+\left|\mathcal{F}_c\left(u,v\right)\right|&=\sqrt{\mathrm{Re}(\mathcal{F}_c(u,v))^2+\mathrm{Im}(\mathcal{F}_c(u,v))^2}, \\
+\theta_c(u,v)&=\tan^{-1}(\frac{\mathrm{Im}(\mathcal{F}_c(u,v))}{\mathrm{Re}(\mathcal{F}_c(u,v))}),
+\end{split}
+\end{equation}
+% 对于多通道特征图上的单个通道，傅里叶变换及其逆过程是独立计算的。这里，Re(\cdot)和Im(\cdot)分别表示\mathcal{F}(\cdot)的实部和虚部。
+for an individual channel within a multichannel feature map, and the Fourier Transform and its inverse are computed independently. Here, $ \mathrm{Re}(\cdot) $ and $ \mathrm{Im}(\cdot) $ denote the real and imaginary parts of $ \mathcal{F}(\cdot) $, respectively.
+\par
+% 在我们的工作中，使用对跳跃连接的特征图进行自注意力傅里叶变换，用来模拟滤波去除特征图中的伪影，同时增强空间特征，在解码器中进行融合。
+In our work, we apply a self-attention Fourier Transform to the feature maps in the skip connections to simulate filtering, removing artifacts while enhancing spatial features, and then fuse them within the decoder.
+\subsection{Collaborative Consistency Large-Kernel Projection Module}
+
+\begin{figure}[tbp]
+    \centering
+    % \includegraphics[width=7in]{fig-module.png}
+    \includegraphics[width=1\linewidth]{3.pdf}
+    \caption{The architectural diagram of CCPM.}
+    \label{img3}
+\end{figure}
+
+% 在三维光学相干断层扫描体积中，视网膜层在结构和微血管模式上表现出强烈的异质性，通常伴有严重的条纹伪影。现有的快速投影模块（FPM）通常依赖于具有单向池的多尺度卷积来压缩3D特征，虽然高效，但往往会过度压缩层间结构。这对于OCTA数据尤其成问题，其中血管和伪影遵循不同的3D空间分布，导致投影后伪影污染和血管不连续。为了缓解这些问题，我们提出了一种具有双分支架构的一致性感知协作大内核投影模块。通过协作特征学习联合建模分支间一致性，并通过大核和扩展卷积增强全局上下文感知，所提出的模块在有效抑制投影引起的伪影的同时保持了结构连续性。
+In 3D OCTA volumes, retinal layers exhibit strong heterogeneity in structure and microvascular patterns, often accompanied by severe striping artifacts. Existing Fast Projection Modules (FPMs) typically rely on multi-scale convolutions with unidirectional pooling to compress 3D features~\cite{ref5}, which, while efficient, tend to over-compress inter-layer structures~\cite{ref13}. This is particularly problematic for OCTA data, where vessels and artifacts follow distinct 3D spatial distributions, leading to artifact contamination and vessel discontinuities after projection. To mitigate these issues, we propose a Consistency-aware Collaborative Large-Kernel Projection Module with a dual-branch architecture. By jointly modeling inter-branch consistency through collaborative feature learning and enhancing global context perception via large-kernel and dilated convolutions, the proposed module preserves structural continuity while effectively suppressing projection-induced artifacts.
+\par
+% 如图3所示，首先使用两个独立的三维卷积层对输入体积X\in\mathbb{R}^{H\times L\times W}进行编码：
+As shown in \hyperref[img3]{Fig. \ref*{img3}}, we first encode the input volume $ X \in \mathbb{R}^{H \times L \times W} $ using two independent 3D convolution layers:
+\begin{equation}
+X_1=f_1(X),X_2=f_2(X_1),
+\end{equation}
+% 其中 f_1,f_2表示3D卷积操作，然后进入CCPM的两个协同分支：上分支（U-branch）与下分支（D-branch），每个分支均包含三次不同尺度的投影层（PLM），具体的下采样倍率分别为\mathrm{U-branch:\ }(8,10,4),\mathrm{D-branch:\ }(8,5,8)，保证维度在深度方向对齐，每个PLM由一次三维池化与两层大核卷积（kernel = 5,7）构成，其中7×7×7卷积采用空洞率（dilation = 3），以在不增加参数量的情况下扩大感受野。在传统单分支FPM中，3D特征沿深度维度被单向压缩为2D特征：
+where $f_1$ and $f_2$ denote 3D convolution operations. The encoded features are then fed into two collaborative branches of the CCPM: the upper branch (U-branch) and the lower branch (D-branch). Each branch contains three Projection Learning Modules (PLM) operating at different scales, with downsampling ratios of $\mathrm{U\text{-}branch:(8, 10, 4)}$ and $\mathrm{D\text{-}branch:(8, 5, 8)}$, ensuring alignment along the depth dimension. Each PLM consists of a 3D pooling operation followed by two large-kernel convolutions (kernel sizes = $5$ and $7$), where the $7 \times 7 \times 7$ convolution uses a dilation rate of $3$ to enlarge the receptive field without increasing the parameter count. In conventional single-branch FPM, 3D features are unidirectionally compressed along the depth dimension into 2D representations:
+\begin{equation}
+F^{(t+1)}=\mathcal{P}(\mathcal{C}(F^{(t)})),
+\end{equation}
+% 其中 \mathcal{C}(\cdot)表示卷积操作，\mathcal{P}(\cdot) 表示池化操作。而在我们提出的一致性协同机制中，两分支在每个阶段交替进行跨分支特征融合，第一次池化后，下分支特征传递给上分支, 第二次池化后，上分支特征再反馈给下分支并且在最终阶段进行对齐与融合，记第i层上分支、下分支的特征分别为U_i与D_i，则协同更新过程可形式化为：
+where $\mathcal{C}(\cdot)$ denotes convolution and $\mathcal{P}(\cdot)$ denotes pooling. In the proposed consistency-aware co-learning mechanism, the two branches perform alternating cross-branch feature fusion at each stage. After the first pooling operation, features from the lower branch are passed to the upper branch. After the second pooling operation, features from the upper branch are fed back to the lower branch. In the final stage, the two branches are aligned and fused. Let $U_i$ and $D_i$ denote the feature representations of the upper and lower branches at the $i$-th stage, respectively. The collaborative update process can thus be formalized by:
+\begin{equation}
+\begin{split}
+U_{1}&=\mathcal{P}_{1}^{U}\left(\mathcal{C}_{1}^{U}\left(X_{1}\right)\right), \\
+D_{1}&=\mathcal{P}_{1}^{D}\left(\mathcal{C}_{1}^{D}\left(X_{2}\right)\right), \\
+U_{2}&=\mathcal{P}_{2}^{U}\left(\mathcal{C}_{2}^{U}\left(U_{1} \oplus D_{1}\right)\right), \\
+D_{2}&=\mathcal{P}_{2}^{D}\left(\mathcal{C}_{2}^{D}\left(D_{1} \right)\right), \\
+U_{3}&=\mathcal{P}_{3}^{U}\left(\mathcal{C}_{3}^{U}\left(U_{2}\right)\right), \\
+D_{3}&=\mathcal{P}_{3}^{D}\left(\mathcal{C}_{3}^{D}\left(D_{2} \oplus U_{3}\right)\right),
+\end{split}
+\end{equation}
+% 其中\oplus表示特征拼接，\mathcal{C}_i(\cdot)为第i层的大核卷积，\mathcal{P}_i(\cdot)为沿深度维度的池化操作。这种交替交互机制使得两个分支在降维过程中保持特征一致性，并在特征空间中形成一种“对比一致性”表示，最后，通过 skip 连接将初始特征 X_1+X_2与融合特征 U_3+D_3拼接：
+where $\oplus$ denotes feature concatenation, $\mathcal{C}_i(\cdot)$ represents the large kernel convolution at the $i$-th layer, and $\mathcal{P}_i(\cdot)$ denotes the pooling operation along the depth dimension. This alternating interaction mechanism enables the two branches to maintain feature consistency during dimensionality reduction and to form a "contrastive-consistent" representation in the feature space. Finally, the initial features $X_1 + X_2$ are concatenated with the fused features $U_3 + D_3$ through a skip connection:
+\begin{equation}
+Y={\rm Conv2D}({\rm Concat}(P(X_1+X_2),U_3+D_3)).
+\end{equation}\par
+% 最终输出为二维特征 Y\in\mathbb{R}^{C\times L\times W}，Y为后续OCTA血管分割任务提供了更加稳定和信息丰富的空间特征表示。
+The final output is a 2D feature map $Y \in \mathbb{R}^{C \times L \times W}$, which provides a more stable and information-rich spatial representation for the subsequent OCTA vascular segmentation task.
+\subsection{Spatial Frequency-domain Self-Attention Demodulator}
+% 在基于编码器-解码器的OCTA分割框架中，跳跃连接对于将结构信息从浅层层传递到深层层至关重要；然而，浅层特征往往包含大量的低级噪声以及条纹状伪影，这些伪影会直接传递到解码器中，从而在上采样过程中导致高频失真和边缘模糊，进而妨碍精细血管结构的识别~\cite{ref50}。传统的基于像素级加法或串联操作的跳跃连接融合方法无法捕捉不同特征层次之间的空间关联性与频率一致性，而空间域自注意力虽然能够模拟长距离依赖关系，但其计算成本较高，且在抑制局部频率伪影方面效果不佳。为了克服这些局限性，我们提出了一种空间频率域自注意力解调器，该算法将频率域建模机制明确地融入到跳跃连接融合过程中，从而实现空间与频率信息的联合感知，进而提升OCTA分割任务的性能，使特征融合过程更加稳健。
+In encoder–decoder–based OCTA segmentation frameworks, skip connections are essential for transferring structural information from shallow to deep layers; however, shallow features often contain substantial low-level noise and stripe artifacts, which are directly propagated into the decoder and introduce high-frequency distortions and edge blurring during upsampling, thereby hindering the recovery of fine vascular structures~\cite{ref50}. Conventional skip-connection fusion based on pixel-wise addition or concatenation fails to capture spatial correlations and frequency consistency across feature levels, while spatial-domain self-attention, though capable of modeling long-range dependencies, is computationally expensive and ineffective in suppressing local frequency artifacts. To overcome these limitations, we propose a Spatial Frequency-domain Self-Attention Demodulator that explicitly integrates frequency-domain modeling into skip-connection fusion, enabling joint spatial–frequency perception and more robust feature integration for OCTA segmentation.
+\par
+% 如图所示，在空间频率域自注意力中，为实现频域内的特征相关性建模，我们首先将输入特征映射到频率域。给定输入特征 x_i\in\mathbb{R}^{B\times C\times H\times W}，通过卷积操作得到查询、键和值：
+As illustrated in (c) in \hyperref[img2]{Fig. \ref*{img2}}, within the spatial–frequency self-attention module, we first map the input features to the frequency domain to model their correlations in the spectral space. Given an input feature map $x_i \in \mathbb{R}^{B \times C \times H \times W}$, we obtain the query, key and value representations through convolution operations:
+\begin{equation}
+Q,K,V=f_{conv}\left(x_i\right),
+\end{equation}
+% 随后将 Q,K划分为若干非重叠的局部块：
+subsequently, where $Q$ and $K$ are partitioned into several non-overlapping local blocks:
+\begin{equation}
+Q_p,K_p\in\mathbb{R}^{B\times C\times H_p\times W_p\times P\times P}.
+\end{equation}
+% 根据卷积定理，两个信号在空间域中的相关性或卷积相当于它们在频域中的元素乘积。因此，一个自然的问题是，我们能否通过频域中的元素乘积运算来有效地估计注意力图？基于这个假设，我们对每个局部块进行二维快速傅里叶变换，并且在在频域中计算相似度权重：
+According to the convolution theorem, the correlation or convolution of two signals in the spatial domain is equivalent to their element-wise multiplication in the frequency domain. This naturally raises the question of whether the attention map can be efficiently estimated through element-wise operations performed directly in the frequency domain. Based on this assumption, we apply a 2D Fast Fourier Transform to each local block and compute the similarity weights in the frequency domain as:
+\begin{equation}
+\hat{Q}_p=\mathcal{F}(Q_p),\hat{K}_p=\mathcal{F}(K_p),A_p=\hat{Q}_p\odot\hat{K}_p,
+\end{equation}
+% 其中 \odot表示逐元素乘积。然后通过逆傅里叶变换恢复到空间域：
+where $\odot$ denotes element-wise multiplication. The result is then transformed back into the spatial domain via the inverse Fourier transform:
+\begin{equation}
+M_p=\mathcal{F}^{-1}(A_p),
+\end{equation}
+% 得到的 M_p表征了频率域相关性响应，可以模拟滤波对空间域特征进行调制。该结果经过归一化与重构后，与值特征 V相乘实现调制输出：
+the result $M_p$ encodes the correlation response in the frequency domain and can be interpreted as a filter-like modulation applied to spatial features. After normalization and reconstruction, this response is multiplied with the value feature $V$ to generate the modulated output:
+\begin{equation}
+x_{att}={\rm Conv}_{1\times1}\left(V\odot {\rm Norm}(M_p)\right)+x_i.
+\end{equation}
+\par
+% 为同时捕获不同频率范围内的特征相关性，SFSD设计了两个串联的频率域注意力模块 {\rm SFAtt}_1和 {\rm SFAtt}_2，第一层注意力模块以归一化后的特征为输入，该阶段主要侧重于低频结构建模，可视作对全局空间特征的初步调制，第二层注意力模块在第一层输出的基础上进行残差增强，此层聚焦于高频信息的恢复与过滤，使得模型在频率维度上具备更强的层次感知能力。两层调制输出与输入特征进行逐元素相加后，经 3\times3卷积融合，得到最终输出：
+To capture feature correlations across different frequency ranges, SFSD employs two cascaded frequency-domain attention modules, ${\rm SFAtt}_1$ and ${\rm SFAtt}_2$. The first attention module takes the normalized feature as input and primarily focuses on low-frequency structural modeling, serving as an initial modulation of global spatial characteristics. The second attention module builds upon the output of the first stage with a residual enhancement mechanism, emphasizing the restoration and refinement of high-frequency details, and thereby equipping the model with stronger hierarchical perception capability in the frequency domain. The outputs of both modulation stages are added element-wise to the input features, and a subsequent $3 \times 3$ convolution is applied for fusion to obtain the final output:
+\begin{equation}
+\begin{split}
+X_1&={\rm Conv}_{3\times3}(X_{in}),\\
+X_{att1}&={\rm SFAtt}_1\left({\rm Norm}\left(X_1\right)\right),\\
+X_{att2}&={\rm SFAtt}_2({\rm Norm}(X_1+X_{att1})). \\
+\end{split}
+\end{equation}\par
+% 两层调制输出与输入特征进行逐元素相加后，经 3\times3卷积融合，得到最终输出:
+The outputs of the two modulation layers are added element-wise to the input features, and then fused through a $3 \times 3$ convolution to produce the final output:
+\begin{equation}
+X_{out}={\rm Conv}_{3\times3}\left(X_{att1}+X_{att2}+X_1\right)+X_{in},
+\end{equation}
+% 残差项X_{in}保证了信息流动的稳定性与梯度传播的连续性。
+where the residual term $X_{in}$ ensures a stable information flow and a continuous gradient propagation.
+\subsection{Directional-Aware Structural Context Modeling Module}
+
+\begin{figure}[tbp]
+    \centering
+    % \includegraphics[width=7in]{fig-module.png}
+    \includegraphics[width=1\linewidth]{4.pdf}
+    \caption{The architectural diagram of DSCM.}
+    \label{img4}
+\end{figure}
+
+% 血管具有明显的方向性及拓扑连续性，因此会形成连贯的线性结构。每一段局部血管都可以被视作一个方向向量，其表达式为：  v(x,y) = [v_x(x,y), v_y(x,y)], 该向量的方向由血液流动方向与血管的几何结构共同决定。因此，整个血管网络在空间域中构成了一个变化平滑的向量场。这一特性对于区分动脉与静脉分支、以及编码方向信息而言至关重要。 然而，传统的U形血管网络通常会将方向信息隐含地嵌入到高维的、由多种通道构成的数据结构中，而不会对这些方向信息进行明确的约束或分离处理。因此，这类模型往往无法保持局部方向的一致性，从而导致血管分割结果出现不连续性，甚至会在同一条主要血管内部出现动脉与静脉标签混淆之类的错误。
+Blood vessels exhibit strong directionality and topological continuity, forming coherent linear structures. Each local vessel segment can be modeled as a directional vector $\mathbf{v}(x, y) = [v_x(x, y), v_y(x, y)]$, with orientation jointly determined by blood flow and vessel geometry. The entire vascular network thus constitutes a smoothly varying vector field in the spatial domain. This property is crucial for distinguishing arterial/venous branches and encoding directional information. However, conventional U-shaped networks typically embed directional features implicitly in high-dimensional, channel-mixed bottleneck representations, without explicit directional constraints or decoupling. Consequently, the model often fails to preserve local directional consistency, resulting in discontinuous vessel segmentations and errors such as arterial–venous label confusion within the same major vessel.
+\par
+% 因此，我们的动机是从向量建模的视角出发，提出方向感知的结构上下文建模模块（DSCM）。如图4所示，该模块的核心思想是将瓶颈层的高维通道特征看作携带潜在方向信息的载体，通过通道划分与方向建模机制，使每个子通道组对应于特定方向的上下文特征，从而在特征空间中模拟局部血管矢量场的方向分布，增强OCTA血管分割能力。
+
+
+
+Therefore, motivated by a vectorial modeling perspective, we propose the Directional-Aware Structural Context Modeling Module. As illustrated in \hyperref[img4]{Fig. \ref*{img4}}, the core idea of this module is to interpret the high-dimensional channel features at the bottleneck as carriers of latent directional information. Through channel partitioning and directional modeling mechanisms, each sub-channel group corresponds to contextual features along a specific direction, thereby simulating the local vascular vector field distribution in feature space and enhancing OCTA vascular segmentation performance.
+\par
+% 设输入特征为 \mathbf{X}_\mathbf{b}\in\mathbb{R}^{B\times C\times H\times W}，其中 B为批量大小，C 为通道数，H,W 分别为空间尺寸。假设特征通道可以被划分为N_d个方向子空间，每个子空间对应一种局部方向响应。对于 OCTA 血管图像，通常选取 N_d=4，分别对应上（↑）、下（↓）、左（←）、右（→）四个主方向。于是有：
+Let the input feature be $\mathbf{X}_\mathbf{b} \in \mathbb{R}^{B \times C \times H \times W}$, where $B$ is the batch size, $C$ is the number of channels, and $H$, $W$ are the spatial dimensions. We assume that the feature channels can be divided into $N_d$ directional subspaces, with each subspace corresponding to a specific local directional response. For OCTA vascular images, $N_d$ is typically set to 4, corresponding to the four primary directions: up (↑), down (↓), left (←), and right (→). Thus, we have:
+\begin{equation}
+\mathbf{X_b}=[\mathbf{X_b}^{(1)},\mathbf{X_b}^{(2)},\ldots,\mathbf{X_b}^{(N_d)}],\mathbf{X_b}^{(d)}\in\mathbb{R}^{B\times(C/N_d)\times H\times W},
+\end{equation}
+% 每个方向子特征 {\mathbf{X}_\mathbf{b}}^{(d)}被输入一个方向特定的深度卷积算子\Phi_d(\cdot)，用于捕获该方向邻域的空间响应模式：
+where each directional sub-feature ${\mathbf{X}_\mathbf{b}}^{(d)}$ is fed into a direction-specific depthwise convolution operator $\Phi_d(\cdot)$ to capture the spatial response patterns within its corresponding directional neighborhood:
+\begin{equation}
+\mathbf{T}^{(d)}=\Phi_d(\mathbf{X}^{(d)}).
+\end{equation}
+\par
+% 由于不同像素区域的主导方向不同。我们为每个方向生成动态的门控权重 \mathbf{W}^{(d)}\in(0,1)^{B\times1\times H\times W}，表示在该像素处方向 d的响应强度，门控权重由共享注意力函数\mathcal{A}(\cdot)生成：
+Since the dominant direction varies across different pixel regions, we generate dynamic gating weights $\mathbf{W}^{(d)} \in (0,1)^{B \times 1 \times H \times W}$ for each direction, representing the response strength of direction $d$ at each pixel. The gating weights are produced by a shared attention function $\mathcal{A}(\cdot)$:
+\begin{equation}
+\mathbf{W}=\mathcal{A}(\mathbf{X})={\rm Sigmoid}({\rm GAP}(\mathbf{X}_\mathbf{b})),
+\end{equation}
+% 其中 \mathbf{W}=[\mathbf{W}^{(1)},\mathbf{W}^{(2)},\ldots,\mathbf{W}^{(N_d)}]，GAP(\cdot)表示由多个级联卷积层从细化后的瓶颈特征中提取权重。然后每个方向分支的特征通过对应权重进行门控调制：
+where $\mathbf{W} = [\mathbf{W}^{(1)}, \mathbf{W}^{(2)}, \ldots, \mathbf{W}^{(N_d)}]$, and ${\rm GAP}(\cdot)$ denotes the extraction of weights from the refined bottleneck features via a series of cascaded convolutional layers. Each directional branch feature is then modulated by its corresponding gating weight:
+\begin{equation}
+\widetilde{\mathbf{T}}^{(d)}=\mathbf{T}^{(d)}\odot\mathbf{W}^{(d)},
+\end{equation}
+% 其中 \odot表示逐元素乘法，在模块中，这种门控加权的方向信息提取可以重复T次，这里设置为2，最终得到方向加权融合结果：
+where $\odot$ denotes element-wise multiplication. Within the module, this gated directional feature extraction can be iterated $K$ times, which is set to 2 in our implementation, producing the final directionally weighted fused output:
+\begin{equation}
+\mathbf{Y}_b=\mathbf{X}_b+\sum_{i=1}^K\sum_{d=1}^{N_d}\widetilde{\mathbf{T}}^{(i,d)}.
+\end{equation}
+\subsection{Loss Function}
+
+\begin{figure}[tbp]
+    \centering
+    % \includegraphics[width=7in]{fig-module.png}
+    \includegraphics[width=1\linewidth]{5.pdf}
+    \caption{A bar chart showing the proportional distribution of background, capillaries, arteries, veins, and the FAZ in the OCTA-500 dataset.}
+    \label{img5}
+\end{figure}
+
+% 由于OCTA分割过程中类别分布极不均衡，标准的交叉熵损失函数往往会偏向于占优势的类别，从而导致细小毛细血管及功能区域的识别效果不佳。为了更好地实现类别平衡与视网膜结构保护的兼顾，我们提出了一种复合损失函数——该函数将加权交叉熵损失与Dice相似度损失相结合，从而使网络在训练过程中既能保持类别平衡，又能维持视网膜结构的完整性。
+Due to severe class imbalance in OCTA segmentation, standard cross-entropy loss tends to favor dominant classes, leading to poor recognition of fine capillaries and functional regions. To better balance class equity and structural preservation, we propose a composite loss that integrates weighted cross-entropy with Dice similarity loss, enabling the network to maintain both class balance and retinal structural integrity during training.
+\par
+% 加权交叉熵损失是一种像素级分类损失函数，能够衡量预测分布与真实分布之间的差异。其基本形式定义为：
+The weighted cross-entropy loss is a pixel-wise classification loss that measures the discrepancy between the predicted distribution and the ground truth distribution. Its basic form is defined by:
+\begin{equation}
+\mathcal{L}_{WCE}=-\frac1N\sum_{i=1}^N\sum_{c=1}^Cw_cy_{i,c}\log(p_{i,c}),
+\end{equation}
+% 其中，N 表示像素总数，C 为类别数量，y_{i,c}\in{0,1} 为第 i个像素属于第 c类的真实标签，p_{i,c}=\frac{\exp\funcapply(z_{i,c})}{\sum_{k=1}^{C}\exp\funcapply(z_{i,k})} 为softmax归一化后的预测概率，z_{i,c}表示模型在像素i上对第c类的原始预测分数，p_{i,c}为其对应的预测概率。w_c是不同类别在损失计算中的权重，本文将背景类别的权重设置为 w_{BG}=1，其余类别权重设为 w_C=w_A=w_V=w_F=2，给予重要类别更高的关注度。
+where, $N$ denotes the total number of pixels, $C$ is the number of classes, $y_{i,c}\in\{0,1\}$ is the ground-truth label indicating whether pixel $i$ belongs to class $c$, $p_{i,c}=\frac{\exp(z_{i,c})}{\sum_{k=1}^{C} \exp(z_{i,k})}$ is the softmax-normalized predicted probability with $z_{i,c}$ representing the raw prediction score for class $c$ at pixel $i$, and $w_c$ is the weight assigned to each class in the loss calculation. In this work, the weight of background class is set to $w_{BG}=1$, while the remaining classes are assigned $w_C = w_A = w_V = w_F = 2$, giving higher emphasis to the important classes.
+\par
+% 然而，交叉熵损失仅关注像素级分类精度，对分割区域的几何形态与空间一致性缺乏直接约束。为此，本文引入Dice相似系数损失，以进一步提高模型在视网膜结构的重叠度与拓扑一致性。Dice系数用于衡量预测结果与真实标注之间的区域重叠程度，其定义为：
+However, cross-entropy loss focuses solely on pixel-wise classification accuracy and does not directly constrain the geometric shape or spatial consistency of segmented regions. To address this, we introduce Dice similarity loss, which further enhances the overlap and topological consistency of retinal structures. The Dice coefficient measures the degree of an overlap between the predicted segmentation and the ground truth, and is defined by:
+\begin{equation}
+\mathcal{L}_{Dice}=1-\frac{2\sum_{i=1}^Np_ig_i+\epsilon}{\sum_{i=1}^Np_i^2+\sum_{i=1}^Ng_i^2+\epsilon},
+\end{equation}
+% 其中 p_i和 g_i分别表示预测概率与真实标签，\epsilon为防止分母为零的微小常数。将上述两种损失函数进行组合，构建总体优化目标：
+where, $p_i$ and $g_i$ represent the predicted probability and the ground-truth label for pixel $i$, respectively, and $\epsilon$ is a small constant added to prevent division by zero. By combining the two loss functions described above, the overall optimization objective is formulated by:
+\begin{equation}
+\mathcal{L}_{total}=\lambda_1\mathcal{L}_{WCE}+\lambda_2\mathcal{L}_{Dice}.
+\end{equation}
+% 实验中取 \lambda_1=\lambda_2=1，以实现均衡优化。
+In the experiments, we set $\lambda_1 = \lambda_2 = 1$ to achieve balanced optimization.
+
+\begin{figure}[tbp]
+    \centering
+    % \includegraphics[width=7in]{fig-module.png}
+    \includegraphics[width=1\linewidth]{6.pdf}
+    \caption{The box plots in the figure illustrate the mIoU distributions of the six methods on the OCTA\_3mm and OCTA\_6mm datasets.}
+    \label{img6}
+\end{figure}
+
+\section{Experimental Results}\label{Experimental Results}
+% 在本节中，我们将介绍数据集、实验设计与细节和实验结果。
+In this section, we present the dataset, the experimental design and details, and the experimental results.
+\subsection{Dataset}
+
+
+
+% 在本研究中，我们采用公开的 OCTA-500 数据集 [5]对所提出的方法进行评估。该数据集是目前规模最大、内容最全面、并且唯一包含三维OCTA视网膜体积数据的公共数据集，涵盖了来自500名不同性别、年龄及视网膜疾病受试者的多模态成像数据。OCTA-500 同时提供了三维 OCT/OCTA体积数据以及二维投影图像，支持在多模态场景和不同输入尺寸下开展模型训练与验证。数据集还附带四类文本标签（年龄、性别、眼别、疾病类型）与七类分割标签（大血管、毛细血管、动脉、静脉、2D FAZ、3D FAZ、视网膜层），为视网膜结构与血管特征的多层次分析提供了丰富的标注信息。
+In this study, we evaluate the proposed method using the publicly available OCTA-500 dataset ~\cite{ref5}. This dataset is currently the largest and most comprehensive public resource, and it is the only one providing three-dimensional OCTA retinal volume data. It includes multimodal imaging data from 500 subjects with diverse genders, ages, and retinal disease conditions. OCTA-500 provides both 3D OCT/OCTA volumetric data and 2D projection images, enabling model training and validation under multimodal scenarios and varying input resolutions. Additionally, the dataset contains four types of textual labels (age, gender, eye laterality, and disease type) and seven categories of segmentation labels (large vessels, capillaries, arteries, veins, 2D FAZ, 3D FAZ, and retinal layers), offering rich annotations for multi-level analyses of retinal structures and vascular features.
+\par
+
+\begin{figure*}[tbp]
+    \centering
+    % \includegraphics[width=7in]{fig-module.png}
+    \includegraphics[width=0.9\linewidth]{7.pdf}
+    \caption{Visualization results of normal samples.}
+    \label{img7}
+\end{figure*}
+% 根据视场（Field of View, FOV）的不同，OCTA-500 被划分为两个子集：OCTA_6mm 和 OCTA_3mm。其中，OCTA_6mm 包含300个样本（No.10001–No.10300），每个体积的原始尺寸为 640×400×400 像素；OCTA_3mm 包含200个样本（No.10301–No.10500），每个体积的原始尺寸为 640×304×304 像素。为降低模型参数量并统一数据维度，我们在数据预处理阶段使用双线性插值将体积的高度方向调整为160像素。
+Based on the field of view (FOV), the OCTA-500 dataset is divided into two subsets: OCTA\_6mm and OCTA\_3mm. The OCTA\_6mm subset contains 300 samples (No.10001–No.10300), each with an original volume size of 640×400×400 pixels, while the OCTA\_3mm subset includes 200 samples (No.10301–No.10500), each with an original volume size of 640×304×304 pixels. To reduce model complexity and unify data dimensions, the height of each volume is rescaled to 160 pixels during the preprocessing using bilinear interpolation.
+
+\subsection{Experimental Details}
+% 训练设置: 本研究中的网络模型采用 PyTorch 框架（版本≥1.13.1）实现。卷积层参数使用 Kaiming 方法初始化，而归一化层的尺度和移位参数分别初始化为 1 和 0。训练期间，Nadam 优化器采用，一阶和二阶动量系数分别为 0.9 和 0.99，初始学习率为 0.0005，权重衰减为 1e-4。训练设定为 100 个纪元，确保至少有 3 万次迭代。对于 6mm 子集，我们使用 4 个批次，并使用 6×训练集增补;对于 3mm 子集，我们使用 4 个批次，并使用 9×训练集增补。学习率衰减遵循 DeepLabv2 的多项式策略，定义为xxxx并在第一个纪元进行线性预热以稳定收敛。混合精度训练（AMP）被启用以提升计算效率并减少 GPU 内存使用。此外，采用耐心=10 且 delta=0 的早期停止策略以防止过拟合。损失函数结合了交叉熵损失（忽略索引=255）和骰子损失，背景和四个分割类的类别权重设置为[1.0， 2.0， 2.0， 2.0， 2.0]。
+\textcolor{blue}{\textbf{Training Setup:} The network models in this study are implemented using the PyTorch framework (version $\geq$ 1.13.1). Convolutional layer parameters are initialized using the Kaiming method, while the scale and shift parameters of normalization layers are initialized to $1$ and $0$, respectively. During training, the Nadam optimizer~\cite{ref51} is employed with first- and second-order momentum coefficients set to $0.9$ and $0.99$, with an initial learning rate of $0.0005$ and weight decay of $1e-4$. The training is set to $100$ epochs, ensuring at least $30,000$ iterations. For the $6mm$ subset, we use a batch size of $4$ with $6×$ training set augmentation, while for the 3mm subset, we use a batch size of $4$ with $9×$ training set augmentation. Learning rate decay follows the polynomial strategy of DeepLabv2~\cite{ref52}, defined as $ lr \times (1 - \frac{iter}{total_iter})^{0.9} $ , with a linear warm-up in the first epoch to stabilize convergence. Mixed-precision training (AMP) is enabled to improve computational efficiency and reduce GPU memory usage. Additionally, an early stopping strategy with $patience=10$ and $delta=0$ is applied to prevent overfitting. The loss function combines CrossEntropyLoss (ignoring index=255) and Dice Loss, with class weights set to $[1.0, 2.0, 2.0, 2.0, 2.0]$ for background and the four segmentation classes.}
+\par
+% 预处理时采用 Z 分数归一化，平均值=0.236，std=0.106，计算公式为 (x−mean)/std 。原始 OCTA 数据为 uint8 格式（0-255 范围），无明显削波。由于 OCTA-500 数据集已预先比对，因此不应用去噪或注册步骤。模型直接处理三维体积，无需投影，三维到二维标签配对通过文件 ID 匹配实现（例如，6 毫米数据的 ID 10001-10300,3 毫米数据的 ID 为 10301-10500）。
+\textcolor{blue}{\textbf{Preprocessing:} For preprocessing, we employ Z-score normalization with $mean=0.236$ and $std=0.106$, calculated as $(x - mean) / std$. The original OCTA data is in uint8 format ($0-255$ range). No denoising or registration steps are applied as the OCTA-500 dataset has been pre-aligned. The 3D volumes are directly processed by the model without projection, and the 3D-to-2D label pairing is achieved through file ID matching (e.g, IDs 10001-10300 for 6mm data, 10301-10500 for 3mm data).}
+
+\par
+
+% 验证设置: 为了评估模型的整体表现，采用了五重交叉验证策略，采用 sklearn.model_selection。带洗牌的 KFold = False。在 OCTA-500 数据集的每个子集（6 毫米：300 个样本，ID 为 10001-10300;3 毫米：200 个样本，编号为 10301-10500）中，原始数据被均匀划分为五个互斥的折叠。每个样本（OCT/OCTA 体积）都被视为独立病例，确保患者数据不被分散到不同折叠中，以保持患者层面的独立性。每个周期使用四个折叠进行训练，剩余的折叠作为验证集，旋转确保验证样本不会跨周期重叠。不进行分层以维持各阶层间的阶级平衡。最后，五个模型各自验证集的预测数据被汇总和分析，以计算整体性能指标。我们同时采用每折评估和合并评估（合并所有折叠预测）。平均欠款计算为每类欠债单位值的平均值。阈值=5 的后处理步骤用于去除小于 5 像素的连接区域。分段类别包括毛细血管、动脉、静脉和 FAZ，其比例分布见图 5。
+\color{blue}
+\textbf{Validation Setup:} To assess the overall performance of the model, a five-fold cross-validation strategy is employed using sklearn.model\_selection.KFold with shuffle=False. Within each subset of the OCTA-500 dataset, the original data are evenly partitioned into five mutually exclusive folds. Each sample is treated as an independent case, ensuring no patient data is split across different folds to maintain patient-level independence. In each cycle, four folds are used for training while the remaining fold serves as the validation set, with rotation ensuring that validation samples do not overlap across cycles. No stratification is performed to maintain class balance across folds. Finally, the predictions from the five models on their respective validation sets are aggregated and analyzed to compute overall performance metrics. We employ both per-fold evaluation and pooled evaluation (combining all fold predictions). Mean IoU is calculated as the mean of per-class IoU values. A post-processing step with $threshold=5$ is applied to remove connected regions smaller than 5 pixels. The segmentation categories include capillaries, arteries, veins, and FAZ, with their proportional distributions shown in \hyperref[img5]{Fig. \ref*{img5}}.
+\par
+% 数据增强: 对于三维 OCTA 数据，应用随机旋转、随机水平翻转和垂直翻转等空间变换，以增强模型对空间结构变化的鲁棒性。对于二维 OCTA 数据，我们采用 nnU-Net 数据增强方案，包括弹性变形、随机裁剪至 128×128 像素、高斯噪声、高斯模糊、亮度调整、对比度调整和伽马校正，以提升模型泛化性。对于前景区域不足（前景比率>1%）的滤波片段，前景阈值为 0.01。注意，我们的配置中未明确启用 3D 旋转和翻转/缩放，以维持 OCTA 图像的保守增强策略。深度监督启用
+\textbf{Data Augmentation:} For 3D OCTA data, spatial transformations such as random rotation, random horizontal flipping, and vertical flipping are applied to enhance the model's robustness to spatial structural variations. For 2D OCTA data, we follow the nnU-Net data augmentation scheme, incorporating elastic deformation, random cropping to 128×128 pixels, Gaussian noise, Gaussian blur, brightness adjustment, contrast adjustment, and gamma correction to improve model generalization. A foreground threshold of 0.2 is applied to filter patches with insufficient foreground regions. Deep supervision is enabled.
+\par
+% 在测试阶段，我们采用 MONAI 的 sliding_window_inference，roi_size=（160， 128， 128），重叠=0.25，实现推断，无需手动基于patch的重建。
+\textbf{Inference:} At inference time, we employ MONAI's sliding\_window\_inference with $roi_size=(160, 128, 128)$ and $overlap=0.25$ for inference without manually patch-based reconstruction.
+\color{black}
+
+\begin{table*}[htb]
+\centering
+% \setlength{\tabcolsep}{4pt}       % 调整列间距，可根据需要调节
+\caption{OCTA-500 IoU results for each subset.}
+\label{tab1}
+\renewcommand{\arraystretch}{1} % 增加行高（1.15~1.3 均可）
+\setlength{\tabcolsep}{3.2pt}
+\small
+% \resizebox{\textwidth}{!}{%
+\begin{tabular}{lllllllllll} 
+\toprule
+\multirow{3}{*}{Methods} & \multicolumn{5}{l}{OCTA\_6 mm}                                     & \multicolumn{5}{l}{OCTA\_3 mm}                                      \\ 
+\cline{2-5}\cline{7-10}
+                         & \multicolumn{4}{l}{IoU (\%)} & \multirow{2}{*}{mIoU (\%)} & \multicolumn{4}{l}{IoU (\%)} & \multirow{2}{*}{mIoU (\%)}  \\ 
+\cline{2-5}\cline{7-10}
+                         & C     & A     & V     & F             &                                     & C     & A     & V     & F             &                                      \\ 
+\hline
+UNet                     & 70.79 & 72.74 & 73.11 & 82.19         & 74.71                               & 77.96 & 80.34 & 79.10 & 95.63         & 83.26\textbf{}                       \\
+AttentionUNet            & 71.54 & 74.92 & 75.31 & 85.95         & 76.93                               & 78.11 & 79.33 & 76.67 & 95.35         & 82.37\textbf{}                       \\
+AGNet                    & 68.24 & 72.54 & 72.64 & 81.60         & 73.76                               & 76.71 & 78.12 & 75.84 & 93.87         & 81.14\textbf{}                       \\
+AVNet                    & 70.99 & 64.86 & 65.76 & 81.55         & 70.79                               & 77.76 & 74.46 & 71.12 & 94.21         & 79.39\textbf{}                       \\
+CENet                    & 70.61 & 69.34 & 69.71 & 80.17         & 72.46                               & 78.03 & 78.92 & 76.61 & 94.40         & 81.99\textbf{}                       \\
+MNet                     & 71.33 & 74.98 & 75.22 & 83.21         & 76.19                               & 77.09 & 71.33 & 69.19 & 92.99         & 77.65\textbf{}                       \\
+TransUNet                & 69.46 & 69.79 & 70.56 & 79.39         & 72.30                               & 77.76 & 76.29 & 73.64 & 92.95         & 80.16\textbf{}                       \\
+UCTransNet               & 71.38 & 76.97 & 77.10 & 84.56         & 77.50                               & 79.16 & 81.19 & 79.20 & 95.64         & 83.80\textbf{}                       \\
+IPN                      & 82.47 & 55.74 & 59.11 & 68.98         & 66.58                               & 85.87 & 68.98 & 64.15 & 88.79         & 76.95\textbf{}                       \\
+IPNv2                    & 84.82 & 75.81 & 76.11 & 86.56         & 80.83                               & 86.96 & 82.29 & 80.31 & 95.07         & 86.16\textbf{}                       \\
+H2CNet                   & 86.12 & 77.75 & 77.22 & 86.37         & 81.87                               & 89.23 & 83.03 & 81.39 & \textbf{95.94}         & 87.40\textbf{}                       \\
+SFD-CAM                  & \textbf{86.73} & \textbf{78.94} & \textbf{78.42} & \textbf{86.61}         & \textbf{82.67}                               & \textbf{89.86} & \textbf{83.41} & \textbf{82.54} & 95.71         & \textbf{87.88}\textbf{}                       \\
+\bottomrule
+\end{tabular}%
+% }
+\end{table*}
+
+
+
+
+
+% 评估指标: 为了客观评价不同的视网膜血管分割模型的性能, 研究采用IOU, F1-Score和Dice作为评价指标，IOU用于评估预测区域与真实标注区域的重叠程度；F1-Score和Dice综合考虑精确率与召回率，预测结果与真实区域的相似性。这些指标定义如下：
+\textbf{Evaluation Metrics:} To objectively assess the performance of different retinal vessel segmentation models, this study employs Intersection over Union (IoU), F1-Score, and Dice coefficient as evaluation metrics. IoU measures the overlap between the predicted region and the ground truth, while F1-Score and Dice simultaneously consider precision and recall to quantify the similarity between predictions and true regions. These metrics are defined by:
+\begin{equation}
+\begin{split}
+IOU&=\frac{P\bigcap T}{P\bigcup T}, \\
+Dice&=\frac{2\times(P\cap T)}{|P|+|T|},\\
+F1-Score&=\frac{2TP}{2TP+FP+FN},
+\end{split}
+\end{equation}
+% 其中, TP、TN、FP和FN分别表示真阳性, 真阴性, 假阳性和假阴性数量, P 和 T 分别表示预测标签区域与真实标签区域的面积，由于Dice系数与F1-score在数学表达上的等价性，本研究在计算时采用不同的统计方式以体现两者的侧重点：Dice 系数在单张图像上独立计算后，对测试集的所有样本取算术平均；而 F1-Score 则基于整个测试集的全局统计结果，通过汇总所有样本的 TP、FP 和 FN 计算得到总体指标。
+where, $TP$, $TN$, $FP$, and $FN$ represent the numbers of true positives, true negatives, false positives, and false negatives, respectively, while $P$ and $T$ denote the areas of the predicted and ground truth regions. Although the Dice coefficient and F1-Score are mathematically equivalent, this study employs different computation strategies to reflect their respective emphases. The Dice coefficient is calculated independently for each image and then averaged arithmetically across all samples in the test set. The F1-Score is derived from global statistics over the entire test set by aggregating $TP$, $FP$, and $FN$ across all samples to obtain an overall metric.
+
+\subsection{Quantitative Experiments}
+
+
+
+
+% 为验证所提出网络的有效性，我们在 OCTA_3mm 和 OCTA_6mm 两个子集上与多种主流方法进行了对比实验。比较对象包括常用医学图像分割模型 UNet[42]、Attention-UNet[43]、TransUNet[45]、UCTransNet[49]，以及已有的 OCTA 视网膜血管分割方法：AGNet[46]、AVNet[47]、CENet[44]、H2CNet[13]、IPN[10]、IPNv2[5] 和 MNet[48]。我们在 OCTA-500 数据集上对各方法进行统一训练与复现，以确保公平性。表 1、表 2 和表 3 分别给出了各方法的 IoU、Dice 和 F1-Score 指标表现。其中，表格上半部分为以 OCTA/OCT 二维投影图像作为输入的模型结果，下半部分为以 OCTA 体积数据作为输入的模型结果。
+To validate the effectiveness of the proposed network, comparative experiments are conducted on the OCTA\_3mm and OCTA\_6mm subsets against a range of mainstream methods. The methods for the comparison include widely used medical image segmentation models—UNet~\cite{ref42}, Attention-UNet~\cite{ref43}, TransUNet~\cite{ref45}, and UCTransNet~\cite{ref49}, as well as existing OCTA retinal vessel segmentation approaches: AGNet~\cite{ref46}, AVNet~\cite{ref47}, CENet ~\cite{ref44}, H2CNet~\cite{ref13}, IPN~\cite{ref10}, IPNv2~\cite{ref5}, and MNet~\cite{ref48}. All methods are trained and reproduced on the OCTA-500 dataset under the same conditions to ensure fairness. \autoref{tab1}, \autoref{tab2} and \autoref{tab3} present the IoU, Dice, and F1-Score performance of each method, respectively. In these tables, the upper sections correspond to models using 2D OCTA/OCT projection images as input, while the lower sections correspond to models using 3D OCTA volumetric data as input.
+\par
+
+\begin{table*}[htb]
+\centering
+\caption{OCTA-500 Dice results for each subset.}
+\label{tab2}
+\renewcommand{\arraystretch}{1} % 增加行高（1.15~1.3 均可）
+\setlength{\tabcolsep}{3.2pt}
+\small
+\begin{tabular}{lllllllllll} 
+\toprule
+\multirow{3}{*}{Methods} & \multicolumn{5}{l}{OCTA\_6 mm}                             & \multicolumn{5}{l}{OCTA\_3 mm}                              \\ 
+\cline{2-5}\cline{7-10}
+                         & \multicolumn{4}{l}{Dice (\%)} & \multirow{2}{*}{mDice (\%)} & \multicolumn{4}{l}{Dice (\%)}  & \multirow{2}{*}{mDice (\%)}  \\ 
+\cline{2-5}\cline{7-10}
+                         & C     & A     & V     & F     &                            & C     & A     & V     & F     &                             \\ 
+\hline
+UNet          & 81.82          & 84.51          & 83.63          & 88.27          & 84.56          & 87.19          & 88.87          & 87.98          & 96.97          & 90.25\textbf{} \\
+AttentionUNet & 83.29          & 85.28          & 85.45          & 89.13          & 85.79          & 87.53          & 88.31          & 86.32          & 96.99          & 89.79\textbf{} \\
+AGNet         & 80.68          & 83.73          & 83.75          & 87.90          & 84.02          & 86.26          & 87.51          & 86.14          & 96.64          & 89.14\textbf{} \\
+AVNet         & 81.90          & 78.69          & 79.39          & 87.89          & 81.97          & 86.98          & 84.71          & 82.96          & 96.67          & 87.83\textbf{} \\
+CENet         & 80.70          & 81.12          & 81.24          & 87.21          & 82.57          & 87.43          & 88.14          & 86.38          & 96.78          & 89.68\textbf{} \\
+MNet          & 82.98          & 85.05          & 85.12          & 88.43          & 85.40          & 86.76          & 83.12          & 81.22          & 96.18          & 86.82\textbf{} \\
+TransUNet     & 79.88          & 81.21          & 81.97          & 88.03          & 82.77          & 87.18          & 85.98          & 84.23          & 95.67          & 88.27\textbf{} \\
+UCTransNet    & 83.18          & 86.36          & 86.27          & 89.01          & 86.21          & 87.89          & 89.48          & 88.11          & 96.86          & 90.59\textbf{} \\
+IPN           & 89.06          & 71.19          & 74.21          & 81.03          & 78.87          & 92.19          & 81.30          & 77.66          & 94.09          & 86.31\textbf{} \\
+IPNv2         & 90.94          & 86.12          & 86.38          & 92.31          & 88.94          & 92.74          & 89.83          & 88.76          & 96.81          & 92.04\textbf{} \\
+H2CNet        & 91.82          & 87.46          & 86.99          & 92.14          & 89.60          & 94.43          & 89.79          & 89.42          & \textbf{97.75} & 92.85\textbf{} \\
+SFD-CAM       & \textbf{92.32} & \textbf{88.16} & \textbf{87.83} & \textbf{92.51} & \textbf{90.21} & \textbf{94.58} & \textbf{90.67} & \textbf{90.11} & 97.65          & \textbf{93.25} \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+
+
+
+
+
+% 从表1，2，3可以看出，SFD-CAM 在毛细血管（Capillary）和动/静脉（Artery/Vein）分割任务上均取得了最优性能，其 mIoU、mDice和mF1均优于所有对比方法，达到了82.67/87.88，90.21/93.25和90.46/93.47。在毛细血管分割方面，SFD-CAM 相较第二名 H2C-Net 提升明显，在OCTA_6mm子集和OCTA_3mm子集上mIoU高出0.61%和0.63%，这表明所提出的空间-频域协同建模机制能够更有效地保留微血管细节并增强其拓扑完整性。在动脉与静脉分割中，SFD-CAM 同样取得了领先优势，尤其在血管边界清晰度与分叉结构保持方面提升明显，在mDice均提升1%左右，说明我们的方法在跨尺度血管结构关系建模上具有更强表达能力。在 FAZ 分割指标上，SFD-CAM 虽未取得绝对最优结果，但仍保持与最优模型相近的性能水平，并显著优于大多数 2D到2D 方法。这一结果表明，FAZ 的轮廓区域相对简单，对整体性能贡献较小，因此提升幅度相对有限，但不会影响模型在多目标分割任务中的整体优势。特别地，相比 IPN、IPN-v2 和 H2C-Net 等已有的基于OCTA体积数据投影的分割方法，SFD-CAM 在平均分割性能上实现了稳定提升，验证了我们提出的空间-频域驱动特征融合策略在抑制投影信息损失和增强跨层结构一致性方面的有效性。
+As shown in \autoref{tab1}, \autoref{tab2} and \autoref{tab3}, SFD-CAM achieves the best performance in both capillary and artery/vein segmentation tasks, with mIoU, mDice, and mF1 values of 82.67\%/87.88\%, 90.21\%/93.25\%, and 90.46\%/93.47\%, respectively, surpassing all compared methods. In capillary segmentation, SFD-CAM demonstrates a notable improvement over the second-best model, H2C-Net, with mIoU increases of 0.61\% and 0.63\% on the OCTA\_6mm and OCTA\_3mm subsets, respectively, indicating that the proposed spatial–frequency collaborative modeling mechanism preserves the microvascular details more effectively and enhances topological integrity. In the artery and vein segmentation, SFD-CAM also shows a leading advantage, particularly in the vessel boundary clarity and the preservation of bifurcation structures, achieving approximately 1\% improvement in mDice, suggesting stronger capability in modeling cross-scale vascular structural relationships. Regarding the FAZ segmentation, although SFD-CAM does not achieve the absolute best results, it maintains performance close to the top-performing model and significantly outperforms most 2D-to-2D methods. This indicates that the FAZ contour is relatively simple and contributes less to overall performance, limiting potential improvements, yet it does not compromise the model’s overall advantage in multi-object segmentation tasks. Notably, compared to existing projection-based methods using OCTA volumetric data such as IPN, IPNv2, and H2C-Net, SFD-CAM consistently improves the average segmentation performance, validating the effectiveness of the proposed spatial–frequency feature fusion strategy in mitigating projection information loss and enhancing cross-layer structural consistency.
+\par
+% 同时，实验结果表明，与基于二维投影图像的方法相比，基于体积数据的分割模型在毛细血管层分割中具有显著优势。尽管体积数据的处理在计算开销和推理时间方面更高，但其输入保留了更完整的血管结构信息，避免了投影过程中细小毛细血管信息的丢失，从而能更准确地重建微血管网络。这一特性对于青光眼等视神经相关疾病中微血管特征的精细量化与早期变化检测具有重要意义。
+At the same time, the experimental results indicate that the segmentation models based on the volumetric data exhibit a significant advantage in capillary layer segmentation compared to the methods using 2D projection images. Although the processing volumetric data incurs higher computational cost and longer inference time, it preserves more complete vascular structural information in the input, avoiding the loss of fine capillary details during projection and enabling the more accurate reconstruction of a microvascular network. This capability is particularly important for the precise quantification and early detection of microvascular changes in the optic nerve-related diseases such as glaucoma.
+\par
+
+
+
+% 我们对六种方法在 OCTA-500 数据集两个子集上的 mIoU 分布进行了可视化分析，并绘制箱线图如图6所示。由于采用了五折交叉验证，因此能够基于所有验证样本计算各方法的 mIoU 分布。图中，青色箱体表示 OCTA_3mm 的结果，蓝色箱体表示 OCTA_6mm 的结果；箱体中横线为中位数，虚线则对应平均值。从图中可以观察到，SFD-CAM 的分布更为集中，异常点最少，同时在两个子集中均取得最高的平均与中位性能，整体优于其他对比方法。这一结果进一步验证了所提出的空间–频域驱动特征融合策略在提升模型稳定性与分割精度方面的有效性。
+We conduct a visual analysis of the mIoU distributions of six methods on the two OCTA-500 subsets and plot the results as boxplots in \hyperref[img6]{Fig. \ref*{img6}}. Since five-fold cross-validation is employed, the mIoU distributions for each method are calculated based on all validation samples. In the figure, cyan boxes represent the OCTA\_3mm results, blue boxes represent the OCTA\_6mm resultsm the horizontal line within each box indicates the median, and the dashed line corresponds to the mean. It can be observed that SFD-CAM exhibits a more concentrated distribution with the fewest outliers and achieves the highest mean and median performance across both subsets, outperforming all other compared methods. These results further validate the effectiveness of the proposed spatial–frequency feature fusion strategy in enhancing model stability and segmentation accuracy.
+
+\begin{table*}[htb]
+\centering
+\caption{OCTA-500 F1-Score results for each subset.}
+\label{tab3}
+\renewcommand{\arraystretch}{1} % 增加行高（1.15~1.3 均可）
+\setlength{\tabcolsep}{3.2pt}
+\small
+\begin{tabular}{lllllllllll} 
+\toprule
+\multirow{3}{*}{Methods} & \multicolumn{5}{l}{OCTA\_6 mm}                                & \multicolumn{5}{l}{OCTA\_3 mm}                                 \\ 
+\cline{2-5}\cline{7-10}
+                         & \multicolumn{4}{l}{F1-Score~(\%)} & \multirow{2}{*}{mF1 (\%)} & \multicolumn{4}{l}{F1-Score~(\%)} & \multirow{2}{*}{mF1 (\%)}  \\ 
+\cline{2-5}\cline{7-10}
+                         & C     & A     & V     & F         &                           & C     & A     & V     & F         &                            \\ 
+\hline
+UNet          & 82.90          & 84.22          & 84.47          & 90.22          & 85.45          & 87.62          & 89.10          & 88.33          & 97.77          & 90.71\textbf{} \\
+AttentionUNet & 83.41          & 85.66          & 85.92          & 92.44          & 86.86          & 87.71          & 88.47          & 86.79          & 97.62          & 90.15\textbf{} \\
+AGNet         & 81.12          & 84.08          & 84.15          & 89.87          & 84.81          & 86.82          & 87.72          & 86.26          & 96.84          & 89.41\textbf{} \\
+AVNet         & 83.03          & 78.68          & 79.34          & 89.84          & 82.72          & 87.49          & 85.36          & 83.12          & 97.02          & 88.25\textbf{} \\
+CENet         & 82.77          & 81.89          & 82.15          & 88.99          & 83.95          & 87.66          & 88.22          & 86.76          & 97.12          & 89.94\textbf{} \\
+MNet          & 83.27          & 85.70          & 85.86          & 90.84          & 86.42          & 87.06          & 83.27          & 81.79          & 96.37          & 87.12\textbf{} \\
+TransUNet     & 81.98          & 82.21          & 82.74          & 88.51          & 83.86          & 87.49          & 86.55          & 84.82          & 96.35          & 88.80\textbf{} \\
+UCTransNet    & 83.30          & 86.99          & 87.07          & 91.63          & 87.25          & 88.37          & 89.62          & 88.39          & 97.77          & 91.04\textbf{} \\
+IPN           & 90.39          & 71.58          & 74.30          & 81.64          & 79.48          & 92.40          & 81.64          & 78.16          & 94.06          & 86.57\textbf{} \\
+IPNv2         & 91.79          & 86.24          & 86.43          & 92.80          & 89.32          & 93.03          & 90.28          & 89.08          & 97.47          & 92.47\textbf{} \\
+H2CNet        & 92.54          & 87.48          & 87.15          & 92.69          & 89.97          & 94.31          & 90.73          & 89.74          & \textbf{97.93} & 93.18\textbf{} \\
+SFD-CAM       & \textbf{92.89} & \textbf{88.23} & \textbf{87.90} & \textbf{92.82} & \textbf{90.46} & \textbf{94.66} & \textbf{90.95} & \textbf{90.43} & 97.82          & \textbf{93.47} \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\subsection{Qualitative Experiments}
+
+% 如图7所示，我们从 OCTA_3mm 和 OCTA_6mm 数据集中分别选取了四个正常样本的 OCTA 图像，对比不同方法的分割结果。图中第一列和第二列分别为原始样本与对应标签，其中白色表示毛细血管，红色表示小动脉，绿色表示静脉，黄色表示 FAZ（无血管区），黑色为背景。与其他方法相比，我们的 SFD-CAM 在多种结构上均表现出更精确、更一致的分割效果。如框选的代表性区域所示，我们的方法在毛细血管区域的分割结果更为细致且接近真实结构（例如样本编号10080的分割结果，通过3维结构成功过滤了伪影），这得益于模型在投影阶段充分提取的空间特征，以及后续阶段中空间频率特征的有效融合。对于大血管区域，其他方法普遍存在动脉与静脉混淆的现象，导致同一血管不同节段的预测不连续。而我们的模型能够生成更加连续的同类血管结果，这主要得益于其在建模阶段引入了血管矢量化表达的思想，从向量角度优化血管建模过程，从而增强了动静脉的区分性与连续性。相较而言，在 FAZ 分割上，我们的方法与其他方法的差异并不显著。这可能是由于模型设计时未对 FAZ 区域进行特殊优化，同时 FAZ 结构本身在图像中较为明显。但总体来看，我们的模型在该区域仍然保持了稳定的分割性能。综上所述，SFD-CAM 在多目标 OCTA 分割任务中展现出优异的性能。
+As shown in \hyperref[img7]{Fig. \ref*{img7}}, we select four normal OCTA samples from the OCTA\_3mm and OCTA\_6mm datasets to compare the segmentation results of different methods. In the figure, the first and second columns show the original samples and their corresponding labels, where white represents capillaries, red represents small arteries, green represents veins, yellow indicates the FAZ, and black denotes the background. Compared with other methods, SFD-CAM demonstrates more precise and consistent segmentation across multiple structures. As illustrated in the highlighted representative regions, our method produces finer and more anatomically accurate capillary segmentation results. For example, in sample No.10080, the 3D structural modeling successfully filters out artifacts, due to the model’s effective extraction of spatial features during the projection stage and subsequent fusion with spatial–frequency features. In large vessel regions, other methods commonly exhibit confusion between arteries and veins, resulting in discontinuous predictions along the same vessel. In contrast, our model generates more continuous predictions for vessels of the same type, which can be attributed to the incorporation of vectorized vessel representation during modeling, optimizing vessel reconstruction from a vector perspective and enhancing both artery–vein discrimination and continuity. By comparison, differences among methods in FAZ segmentation are less pronounced, likely because the model is not specifically optimized for the FAZ region and its structure is relatively distinct in the images. Nevertheless, our method maintains stable performance in this region. Overall, SFD-CAM demonstrates superior performance in multi-object OCTA segmentation tasks.
+\par
+
+\begin{figure}[tbp]
+    \centering
+    % \includegraphics[width=7in]{fig-module.png}
+    \includegraphics[width=0.7\linewidth]{8.pdf}
+    \caption{Visualization results of lesion patient samples.}
+    \label{img8}
+\end{figure}
+
+% 相较于正常 OCTA 图像，病变患者的 OCTA 分割更具挑战性。视网膜病变往往伴随血管结构的缺损与形态改变，增加了多目标分割的复杂性。为进一步验证模型的稳健性，我们在两个数据集中选取了病变样本进行分析，如图8所示，结果表明，其他方法在病变区域的毛细血管保留较差，而 SFD-CAM 仍能生成结构完整、视觉一致的结果，且在毛细血管缺乏的背景区域不会出现伪影。此外，如样本10007所示，我们的动静脉分割更加稳健，避免了常见的错误分类与毛细血管丢失问题。这得益于模型中 CCPM 与 SFSD 模块对空间与频域特征的联合学习能力，使其能够在病理条件下区分视网膜结构特征，并通过 DSCM 模块实现血管细节的增强与恢复。值得注意的是，在样本10289视网膜静脉阻塞（RVO）患者的 OCTA 图像中，部分对比方法的 FAZ 分割出现明显缺失，而我们的模型仍能保持良好的稳定性。这一现象可能源于疾病导致的视网膜结构变化，但同时也进一步验证了 SFD-CAM 在复杂病理场景下的有效性与鲁棒性。
+Compared to the normal OCTA images, segmentation in diseased patients is more challenging. Retinal pathologies are often accompanied by vascular defects and morphological changes, increasing the complexity of multi-object segmentation. To further evaluate the model's robustness, we analyze the pathological samples from both datasets, as shown in \hyperref[img8]{Fig. \ref*{img8}}. The results indicate that other methods poorly preserve capillaries in the lesion regions, whereas SFD-CAM consistently produces structurally complete and visually coherent results, without generating artifacts in capillary-deficient background areas. Furthermore, as illustrated in sample No. 10007, our artery and vein segmentation is more robust, avoiding common misclassifications and capillary loss. This robustness stems from the CCPM and SFSD modules’ joint learning of spatial and frequency-domain features, enabling the model to distinguish retinal structural characteristics under pathological conditions, while the DSCM module enhances and restores vascular details. Notably, in the OCTA image of a patient with retinal vein occlusion (RVO) in sample No. 10289, some compared methods exhibit significant FAZ segmentation losses, whereas our model maintains stable performance. This outcome may be attributed to disease-induced retinal structural alterations, and it further validates the effectiveness and robustness of SFD-CAM in complex pathological scenarios.
+
+\subsection{Ablation Experiments}
+
+
+% \usepackage{multirow}
+% \usepackage{booktabs}
+
+
+\begin{table*}[tbp]
+\centering
+\caption{Component ablation experimental results.}
+\label{tab4}
+\renewcommand{\arraystretch}{1} % 增加行高（1.15~1.3 均可）
+\setlength{\tabcolsep}{1.8pt}
+\small
+\begin{tabular}{lllllllllllll} 
+\toprule
+\multicolumn{3}{l}{Methods}                                           & \multicolumn{5}{l}{OCTA\_6 mm}                            & \multicolumn{5}{l}{OCTA\_3 mm}                             \\ 
+\cline{4-7}\cline{9-12}
+\multirow{2}{*}{CCPM} & \multirow{2}{*}{SFSD} & \multirow{2}{*}{DSCM} & \multicolumn{4}{l}{IoU (\%)}  & \multirow{2}{*}{mIoU(\%)} & \multicolumn{4}{l}{IoU (\%)}  & \multirow{2}{*}{mIoU(\%)}  \\ 
+\cline{4-7}\cline{9-12}
+                      &                       &                       & C     & A     & V     & F     &                           & C     & A     & V     & F     &                            \\ 
+\hline
+~                     & ~                     & ~                     & 84.41 & 75.89 & 75.62 & 86.23 & 80.54                     & 86.63 & 82.8  & 80.84 & 94.53 & 86.20\textbf{}             \\
+$\surd$                     & ~                     & ~                     & 85.92 & 76.12 & 75.94 & 86.31 & 81.07                     & 88.51 & 82.94 & 81.42 & 94.88 & 86.94\textbf{}             \\
+~                     & $\surd$                     & ~                     & 84.76 & 76.25 & 75.81 & 86.44 & 80.82                     & 87.12 & 83.01 & 81.02 & 95.12 & 86.57\textbf{}             \\
+~                     & ~                     & $\surd$                     & 84.53 & 77.92 & 77.31 & 86.28 & 81.51                     & 86.95 & 83.97 & 82.03 & 94.76 & 86.93\textbf{}             \\
+$\surd$                     & $\surd$                     & ~                     & 86.67 & 77.81 & 77.92 & 86.33 & 82.18                     & 89.32 & 83.74 & 82.21 & 95.03 & 87.58\textbf{}             \\
+$\surd$                     & ~                     & $\surd$                     & 86.21 & 77.64 & 77.23 & 86.52 & 81.90                     & 88.94 & 83.24 & 81.66 & 95.24 & 87.27\textbf{}             \\
+~                     & $\surd$                     & $\surd$                     & 85.36 & 77.11 & 76.68 & 86.46 & 81.40                     & 87.86 & 82.61 & 81.54 & 95.36 & 86.84\textbf{}             \\
+$\surd$                     & $\surd$                     & $\surd$                     & 86.73 & 78.94 & 78.42 & 86.61 & 82.67                     & 89.86 & 83.41 & 82.54 & 95.71 & 87.88\textbf{}             \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+% 为进一步验证模块设计的合理性，我们进行了消融实验。在SFD-CAM中，我们提出了三项关键组件：CCPM，SFSD和DSCM。为验证这些组件的有效性，我们在 OCTA_6mm 和 OCTA_3mm 数据集上开展了系统的消融实验。实验以FPM快速投影和MedNeXt二维分割模型作为基线，设计了八组实验方案：（1）仅使用基线模型；（2）以CCPM替换FPM模块；（3）在MedNeXt模型的跳跃连接中引入SFSD模块；（4）将MedNeXt的瓶颈层替换为DSCM模块；（5）同时采用CCPM替换FPM，并在跳跃层中加入SFSD；（6）使用CCPM替换FPM，同时在瓶颈层中引入DSCM；（7）保留FPM快速投影结构，但在MedNeXt中加入SFSD和DSCM模块；（8）整合CCPM、SFSD和DSCM三者的完整模型。
+To further validate the rationality of the module design, ablation experiments are conducted. In SFD-CAM, we propose three key components: CCPM, SFSD, and DSCM. To assess their effectiveness, systematic ablation studies are performed on the OCTA\_6mm and OCTA\_3mm datasets. Using FPM rapid projection and the MedNeXt 2D segmentation model as the baseline, eight experimental configurations are designed: (1) baseline model only; (2) replacing the FPM module with CCPM; (3) introducing the SFSD module into the skip connections of MedNeXt; (4) replacing the MedNeXt bottleneck layer with the DSCM module; (5) combining CCPM replacement of FPM with SFSD in the skip connections; (6) replacing FPM with CCPM while introducing DSCM in the bottleneck layer; (7) retaining the FPM rapid projection structure while adding SFSD and DSCM modules to MedNeXt; and (8) the full model integrating CCPM, SFSD, and DSCM.
+\par
+% 表3展示了消融实验结果，由结果可知，对比实验（1）与（2），引入CCPM后模型的整体分割精度显著提升，mIoU提高了0.53%/0.73%，验证了CCPM在空间特征提取方面的有效性。而对比实验（1）与（3）精度提升较为有限，但结合实验（1）、（3）与（5）的结果可见，当CCPM与SFSD联合使用时，模型性能显著增强，表明空间信息与频域信息的融合机制在视网膜血管分割任务中具有重要作用，并且需要同时有充分空间信息的同时频域信息才能发挥最大作用。进一步地，比较实验（1）与（4）发现，DSCM能够有效提升动脉与静脉的分割性能，但对毛细血管的改善较为有限，这可能是由于缺乏CCPM在空间层面的伪影抑制作用。实验（6）的结果进一步印证了这一点，说明血管方向矢量场的建模机制能够在有效区分动静脉的同时改善其分割精度。
+Table 3 presents the results of the ablation experiments. From the results, comparing experiments (1) and (2), the introduction of CCPM leads to a significant improvement in overall segmentation accuracy, with mIoU increases of 0.53\% and 0.73\%, validating CCPM’s effectiveness in spatial feature extraction. In contrast, the accuracy improvement between experiments (1) and (3) is relatively limited; however, by examining experiments (1), (3), and (5), it is evident that combining CCPM with SFSD substantially enhances model performance, indicating that the fusion of spatial and frequency-domain information plays a critical role in retinal vessel segmentation, and that frequency-domain features achieve their full potential only when sufficient spatial information is available. Furthermore, comparing experiments (1) and (4) shows that DSCM effectively improves the artery and vein segmentation but has limited impact on capillaries, likely due to the absence of CCPM’s spatial-level artifact suppression. The results of experiment (6) further confirm that modeling vascular directional vector fields can simultaneously improve artery–vein differentiation and segmentation accuracy.
+\par
+% 综上所述，消融实验充分验证了SFD-CAM中各个模块的独立与协同有效性。这些结果表明，CCPM、SFSD和DSCM在视网膜多目标分割任务中均发挥了重要作用，共同促进了模型在不同尺度与类型血管上的分割性能提升。
+In summary, the ablation experiments fully validate the independent and collaborative effectiveness of each module in SFD-CAM. These results demonstrate that each of CCPM, SFSD, and DSCM plays a crucial role in the multi-object retinal segmentation, collectively enhancing the model’s performance across vessels of different scales and types.
+
+\section{Conclusion}\label{Conclusion}
+% 在本研究中，我们提出了SFD-CAM，一种面向OCTA图像的多结构联合分割方法。该方法首次将频域信息系统性引入OCTA分割任务，通过空间域与频域的双域融合，实现对毛细血管、动脉、静脉及FAZ的统一分割。在方法设计上，首先在投影阶段引入 CCPM，通过一致性协同学习与大核卷积扩大感受野、增强空间特征表达，同时有效抑制噪声与伪影。其次，在二维分割网络的跳跃连接中融入 SFSD，提取关键频域特征，并利用自注意力机制实现频域与空间域的深度融合，从而强化细节恢复与噪声过滤能力。最后，在瓶颈层加入 DSCM，以矢量建模的方式构建局部血管方向场，在特征空间中模拟血管的方向分布，进一步提升OCTA血管结构的解析能力。消融实验表明，这些模块均对最终性能有一定的提升。
+\textcolor{blue}{In this study, we propose SFD-CAM, a multi-structure OCTA segmentation framework that distinguishes from prior spatial-domain methods by integrating frequency-domain information to jointly segment capillaries, arteries, veins, and the FAZ through dual-domain spatial–frequency fusion.} In the projection stage, the consistency-driven collaborative large-kernel projection module (CCPM) expands the receptive field and enhances spatial features while suppressing noise via multi-scale consistency learning. The spatial–frequency self-attention demodulator (SFSD) is embedded in skip connections to extract frequency features and fuse them with spatial information, improving detail recovery and artifact filtering. At the bottleneck, the direction-aware structural context module (DSCM) models local vascular orientation as a vector field, further refining vessel structure representation. Ablation studies confirm that each module contributes positively to segmentation performance.
+\par
+% 尽管SFD-CAM在多个结构的分割任务中取得了优秀的结果，仍存在进一步优化空间。例如，FAZ区域仍可能出现分割不完整的问题；引入TransFormer自注意力结构后模型参数规模较大，限制了其在资源受限平台上的部署。未来工作将主要聚焦于两方面：（1）提升模型的效率与轻量化程度，以降低参数量和内存占用；（2）改进FAZ区域的分割能力，并探索利用半监督学习策略缓解标注不足的问题。此外，我们也计划在真实临床场景中进一步验证模型的稳定性与适用性，以推动其向临床辅助诊断应用迈进。
+While SFD-CAM demonstrates strong multi-structure segmentation performance, challenges remain, including incomplete FAZ delineation and increased parameter load from Transformer-based self-attention, which limit deployment on resource-constrained platforms. Future work will focus on improving model efficiency through lightweight design, enhancing FAZ segmentation, exploring semi-supervised learning to address annotation scarcity, and further validating stability and applicability in clinical settings to support diagnostic applications.
+\section*{Acknowledgement}
+This work was supported by the National Natural Science Foundation of China Project (62572494, 62172441), the Joint Funds for Railway Fundamental Research of National Natural Science Foundation of China (U2368201), special fund of National State Key Laboratory of Ni\&Co Associated Minerals Resources Development and Comprehensive Utilization (GZSYS-KY-2024-073), Key Project of Shenzhen City Special Fund for Fundamental Research (202208183000751), the National Natural Science Foundation of Hunan Province (2023JJ30696), the High Performance Computing Center of Central South University, National Natural Science Foundation of China (Grant No. 82471079 to XD, No.82401262 to XZ), Hunan Engineering Research Center for Glaucoma with Artificial Intelligence in Diagnosis and Application of New Materials(Grant No.2023TP2225 to XD), Natural Science Foundation of Hunan Province, China (Grant No. 2023JJ70014 to XD), Changsha Municipal Natural Science Foundation(No.kq2208495), Changsha Municipal Health Research Project (KJ-202507).
+%% The Appendices part is started with the command \appendix;
+%% appendix sections are then done as normal sections
+% \appendix
+% \section{Example Appendix Section}
+% \label{app1}
+
+%% If you have bib database file and want bibtex to generate the
+%% bibitems, please use
+%%
+%%  \bibliographystyle{elsarticle-num} 
+%%  \bibliography{<your bibdatabase>}
+
+%% else use the following coding to input the bibitems directly in the
+%% TeX file.
+
+%% Refer following link for more details about bibliography and citations.
+%% https://en.wikibooks.org/wiki/LaTeX/Bibliography_Management
+
+\bibliographystyle{elsarticle-num}
+\bibliography{ref.bib}
+
+\end{CJK}
+\end{document}
+%% End of file `elsarticle-template-num.tex'.

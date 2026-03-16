@@ -1,0 +1,14 @@
+numpy==1.22.0
+torch>=1.13.1
+opencv-python==4.11.0.86
+Pillow
+scikit-learn==1.6.1
+ptflops
+pyyaml
+monai==1.4.0
+timm
+nnunetv2
+tensorboard==2.19.0
+ml-collections
+albumentations==2.0.7
+scikit-image==0.25.2
