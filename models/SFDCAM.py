@@ -9,8 +9,8 @@ import torch.nn.functional as F
 import numpy as np
 from einops import rearrange
 import numbers
-from .sub_model.SFDFormer.GSAM import GSAM
-from .sub_model.SFDFormer.LFPM import LFPM
+from .sub_model.SFDFormer.GSAM import DSCM
+from .sub_model.SFDFormer.LFPM import CCPM
 from .sub_model.SFDFormer.FFTAttention import FFTAttention
 
 
@@ -527,7 +527,7 @@ class MedNeXtInstance(nn.Module):
             FFTAttention(in_dim=n_channels * 8, dim=n_channels * 8, patch_size=8)
         )
 
-        self.gsam = GSAM(in_channels=n_channels * 16, out_channels=n_channels * 16)
+        self.gsam = DSCM(in_channels=n_channels * 16, out_channels=n_channels * 16)
 
     def iterative_checkpoint(self, sequential_block, x):
         """
@@ -651,7 +651,7 @@ class MedNeXtInstance(nn.Module):
 def create_mednextv1_small(num_input_channels, num_classes, kernel_size=3, ds=False):
     return MedNeXtInstance(
         in_channels=num_input_channels,
-        n_channels=64,
+        n_channels=32,
         n_classes=num_classes,
         exp_r=2,
         kernel_size=kernel_size,
@@ -719,38 +719,16 @@ def SFDNet(in_channels=1, num_classes=2, model_id='B', kernel_size=3, deep_super
     )
 
 
-class SFDFormer(nn.Module):
+class SFDCAM(nn.Module):
     def __init__(self, in_channels=1, num_classes=5, model_id='B', kernel_size=3, deep_supervision=False,
                  block_size=[160, 128, 128]):
         super().__init__()
-        self.lfpm = LFPM(in_channels=in_channels, channels=64, block_size=block_size)
-        self.unet = SFDNet(in_channels=64, num_classes=num_classes, model_id=model_id,
+        self.lfpm = CCPM(in_channels=in_channels, channels=32, block_size=block_size)
+        self.unet = SFDNet(in_channels=32, num_classes=num_classes, model_id=model_id,
                               kernel_size=kernel_size, deep_supervision=deep_supervision)
 
     def forward(self, x):
         x = self.lfpm(x)
         x = self.unet(x)
         return x
-
-
-if __name__ == '__main__':
-    from ptflops import get_model_complexity_info
-    import re
-    import copy
-
-    model = SFDFormer(1, 5, 'B', 3, True).to('cuda')
-    t1 = torch.randn((4, 1, 160, 128, 128)).to('cuda')
-    out = model(t1)
-    print(model)
-    print(out['out'].shape)
-    # while True:
-    #     pass
-    model = copy.deepcopy(model)
-    macs, params = get_model_complexity_info(model, (1, 160, 128, 128), as_strings=True, print_per_layer_stat=True)
-    print('GMAC: ', macs, 'params: ', params)  # GMAC:  22.58 GMac params:  37.22 M   GMAC =（乘法累加运算次数）/（10⁹）
-    # Extract the numerical value
-    flops = eval(re.findall(r'([\d.]+)', macs)[0]) * 2
-    # Extract the unit
-    flops_unit = re.findall(r'([A-Za-z]+)', macs)[0][0]
-    print('GFlops: {} {}Flops'.format(flops, flops_unit))  # GFlops: 45.16 GFlops
 

@@ -142,9 +142,9 @@ class SplitModule(nn.Module):
         return out_left, out_right, out_up, out_down
 
 
-class GSAM(nn.Module):
+class DSCM(nn.Module):
     def __init__(self, in_channels, out_channels, attention=1):
-        super(GSAM, self).__init__()
+        super(DSCM, self).__init__()
         self.out_channels = out_channels
         self.irnn1 = SplitModule(self.out_channels)
         self.irnn2 = SplitModule(self.out_channels)
@@ -183,10 +183,3 @@ class GSAM(nn.Module):
         out = self.conv3(out)
         mask = self.conv_out(out)
         return mask
-
-if __name__ == '__main__':
-    model = GSAM(in_channels=32, out_channels=32, attention=1)
-    t1 = torch.randn((2, 32, 128, 128))
-    out = model(t1)
-    print(model)
-    print(model(t1).shape) # torch.Size([2, 32, 128, 128])

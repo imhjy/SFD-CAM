@@ -14,7 +14,6 @@ from PIL import Image
 from monai.inferers import sliding_window_inference
 
 from data_utils.datasets import build_dataset
-from hypes_yaml import yaml_utils
 from metric.calculator import Calculator, ConfusionMatrixMetric, CollectIOU
 from utils import train_utils
 import utils.distributed_utils as utils
@@ -26,11 +25,7 @@ import pandas as pd
 from utils.post_process import inverse_polar_transform, check_cup_in_disc_area, ellipse_fitting, \
     keep_maximum_connectivity
 
-root_path = os.path.abspath(__file__)
-root_path = '/'.join(root_path.split('/')[:-3])
-sys.path.append(root_path)
-torch.backends.cudnn.enabled = True
-torch.backends.cudnn.benchmark = True # 自动寻找最优的卷积算法
+
 class_names = ['Background', 'Capillary', 'Artery', 'Vein', 'FAZ']
 
 
@@ -128,10 +123,6 @@ def write_summary_csv(saved_path: str,
                       info: str,
                       class_names: Optional[List[str]] = None,
                       csv_name: str = "validate_results.csv"):
-    """
-    将多个 ConfusionMatrixMetric（每个代表一折）的结果写入 CSV，
-    每一折一行，最后写入 mean 行（fold 平均）。
-    """
     assert len(calculator_list) > 0
     num_classes = calculator_list[0].num_classes
     if class_names is None:
@@ -429,77 +420,17 @@ def main(args, hypes):
             os.remove(os.path.join(args.model_dir, file))
 
 
-def modify_config(hypes):
-    """
-    保险
-    Args:
-        hypes: 配置文件对象
-
-    Returns: 配置文件对象
-
-    """
-    hypes['amp'] = True
-    hypes['train_params']['batch_size'] = 4
-    hypes['optimizer']['lr'] = 0.001  # 统一学习率
-    hypes['device'] = 'cuda'
-    hypes['num-classes'] = 2
-    hypes['num_workers'] = 4
-    if hypes['dataset']['method'] == 'EyeOcdDataset':
-        hypes['dataset']['root_dir'] = "D:\\F\\视杯视盘分割\\EYE-OCD"  # F:\\眼底图像分割\\DRIVE
-        hypes['dataset']['train_expand_rate'] = 2
-        hypes['train_params']['epochs'] = 80
-        hypes['train_params']['save_freq'] = 160
-        hypes['train_params']['train_fold_list'] = [1, 2, 3, 4, 5]
-        hypes['postprocess']['threshold'] = 5
-        hypes['early_stop']['use'] = True
-        hypes['early_stop']['args']['patience'] = 20
-        # if hypes['name'] == 'TransUNet':
-        #     hypes['optimizer']['lr'] = 0.0001
-
-    return hypes
-
 
 if __name__ == '__main__':
-    use_queue_train = True  # 是否启用队列训练
-    if use_queue_train:
-        model_dir_path = [
-            # '../logs/compare/3mm/UNet',
-            # '../logs/compare/3mm/AttentionUNet',
-            # '../logs/compare/3mm/AVNet',
-            # '../logs/compare/3mm/AGNet',
-            # '../logs/compare/3mm/CENet',
-            # '../logs/compare/3mm/MNet',
-            # '../logs/compare/3mm/TransUNet',
-            # '../logs/compare/3mm/UCTransNet',
-            # '../logs/compare/3mm/IPN',
-            # '../logs/compare/3mm/IPNv2',
-            # '../logs/compare/3mm/H2CNet',
-            '../logs/compare/3mm/SFDFormer',
-        ]
-        for path in model_dir_path:
-            print('-----------------Analyze Config File------------------')
-            args = parse_args()
-            args.model_dir = path
-            hypes = yaml_utils.load_yaml(None, args)
-            # modify_config(hypes)
-            print(f'当前训练模型路径: {os.path.abspath(path)}')
-            # hypes['train_params']['batch_size'] = 4
-            # if hypes['name'] == 'R2UNet' or hypes['name'] == 'TransUNet':
-            #     hypes['train_params']['batch_size'] = 2
-            # if hypes['name'] == 'MCDAUNet':
-            #     hypes['train_params']['batch_size'] = 3
-            # hypes['optimizer']['lr'] = 0.002
-            # if hypes['dataset']['method'] == 'DriveDataset':
-            #     hypes['dataset']['root_dir'] = "/dataset/DRIVE"
-            # if hypes['dataset']['method'] == 'ChaseDataset':
-            #     hypes['dataset']['root_dir'] = "/dataset/CHASEDB1"
-            # if hypes['dataset']['method'] == 'StareDataset':
-            #     hypes['dataset']['root_dir'] = "/dataset/Stare"
-            # if hypes['dataset']['method'] == 'HrfDataset':
-            #     hypes['dataset']['root_dir'] = "/dataset/HRF"
-            main(args, hypes)
-    else:
+
+    model_dir_path = [
+        '../logs/compare/3mm/SFDFormer',
+    ]
+    for path in model_dir_path:
         print('-----------------Analyze Config File------------------')
         args = parse_args()
-        hypes = yaml_utils.load_yaml(None, args)
+        args.model_dir = path
+        hypes = load_yaml(None, args)
+        # modify_config(hypes)
+        print(f'当前训练模型路径: {os.path.abspath(path)}')
         main(args, hypes)

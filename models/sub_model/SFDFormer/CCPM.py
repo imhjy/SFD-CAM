@@ -72,9 +72,9 @@ class OutConv2d(nn.Module):
         return self.conv(x)
 
 
-class LFPM(nn.Module):  # Large core fast projection module
+class CCPM(nn.Module):  # Large core fast projection module
     def __init__(self, in_channels=1, channels=64, block_size=[160, 100, 100], **kwargs):
-        super(LFPM, self).__init__()
+        super(CCPM, self).__init__()
         self.in_channels = in_channels
         self.channels = channels
         self.input3d_1 = InConv3d(in_channels, channels)
