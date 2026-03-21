@@ -1,0 +1,70 @@
+name: SFDFormer
+device: 'cuda'
+amp: True
+num-classes: 4
+input_type: '3d'
+modal_name: 'OCTA'
+num_workers: 4
+
+early_stop:
+  use: True
+  args:
+    patience: 10
+    verbose: False
+    delta: 0
+
+
+dataset:
+  method: 'OCTA500Dataset'
+  root_dir: "OCTA-500"
+  block_size: &block_size [ 160,100,100 ]
+  data_size: [ 640,400,400 ]
+  fold_num: 5
+  ignore_index: &ignore_index 255
+  train_expand_rate: 6
+
+
+train_params:
+  batch_size: 4
+  epoches: 100
+  eval_freq: 1
+  save_freq: 80
+  train_fold_list: 0
+  enable_resume: True
+
+
+augmentor:
+  core_method: 'OCTA500'
+  args:
+    crop_size: [100, 100]
+
+
+model:
+  core_method: SFDFormer
+  args:
+    in_channels: 1
+    num_classes: 5
+    model_id: 'S'
+    kernel_size: 3
+    deep_supervision: False
+    block_size: *block_size
+
+loss:
+  core_method: cross_entropy_loss
+  args:
+    dice: True
+    ignore_index: *ignore_index
+
+
+optimizer:
+  core_method: NAdam
+  lr: 0.0005
+  args:
+    eps: 1e-10
+    weight_decay: 1e-4
+
+
+lr_scheduler:
+  core_method: multistep
+  gamma: 0.1
+  step_size: [10, 50, 80]
