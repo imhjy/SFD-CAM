@@ -9,9 +9,9 @@ import torch.nn.functional as F
 import numpy as np
 from einops import rearrange
 import numbers
-from .sub_model.SFDFormer.GSAM import DSCM
-from .sub_model.SFDFormer.LFPM import CCPM
-from .sub_model.SFDFormer.FFTAttention import FFTAttention
+from .sub_model.SFDCAM.GSAM import DSCM
+from .sub_model.SFDCAM.LFPM import CCPM
+from .sub_model.SFDCAM.FFTAttention import FFTAttention
 
 
 class MedNeXtBlock(nn.Module):

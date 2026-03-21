@@ -1,4 +1,4 @@
-name: SFDFormer
+name: SFDCAM
 device: 'cuda'
 amp: True
 num-classes: 4
@@ -40,7 +40,7 @@ augmentor:
 
 
 model:
-  core_method: SFDFormer
+  core_method: SFDCAM
   args:
     in_channels: 1
     num_classes: 5

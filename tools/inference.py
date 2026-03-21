@@ -1,6 +1,4 @@
-"""
-推理验证
-"""
+
 import csv
 import json
 import os
@@ -424,7 +422,7 @@ def main(args, hypes):
 if __name__ == '__main__':
 
     model_dir_path = [
-        '../logs/compare/3mm/SFDFormer',
+        '../logs/compare/3mm/SFDCAM',
     ]
     for path in model_dir_path:
         print('-----------------Analyze Config File------------------')
