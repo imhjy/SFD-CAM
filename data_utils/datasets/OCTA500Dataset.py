@@ -43,13 +43,10 @@ class OCTA500Dataset(Dataset):
         self.train = train  # 训练/测试标志
 
         if self.input_type == '3d':
-            # 1. 检查是否已经处理好数据了，如果没有重新处理
-            save_root = os.path.join(self.root, self.type, 'processed')  # 处理后的数据保存目录
-            if not os.path.exists(os.path.join(save_root, "data.hdf5")):  # 检查处理后的数据是否存在
-                os.makedirs(save_root, exist_ok=True)  # 创建处理后的数据目录
-                print('正在处理OCT/OCTA数据，需要等待一小会~')
-                self.process_data()  # 处理原始数据
-                print('数据处理完成~')
+            save_root = os.path.join(self.root, self.type, 'processed')
+            if not os.path.exists(os.path.join(save_root, "data.hdf5")):
+                print('数据处理未完成，无法加载数据集')
+                return
             self.data = {}
             f = h5pickle.File(os.path.join(save_root, "data.hdf5"), "r")
             self.data['Images'] = f['Images']
@@ -58,8 +55,8 @@ class OCTA500Dataset(Dataset):
             # 2. 检查是否已经分好数据集了，如果没有重新划分数据集
             json_path = os.path.join(os.path.join(self.root, self.type), 'fold.json')
             if not os.path.exists(json_path):
-                print('正在进行数据集划分')
-                OCTA500Dataset.fold_dataset_split(hypes)
+                print('请加载fold.json文件，再初始化数据集')
+                return
             # 3. 获取数据集
             with open(json_path, 'r', encoding='utf-8') as f:
                 json_dict = json.load(f)
@@ -233,56 +230,6 @@ class OCTA500Dataset(Dataset):
         batched_targets = cat_list(targets, fill_value=255)
         return batched_imgs_2d, batched_targets
 
-    @staticmethod
-    def fold_dataset_split(hypes):
-        """
-        切分数据集, 默认使用五折交叉检验, 每个dataset都需要实现这个方法
-        Args:
-            hypes: 配置文件
-        """
-        fold_num = hypes['dataset']['fold_num']
-        kf = KFold(n_splits=fold_num, shuffle=False)  # 初始化KFold
-        dataset_path: str = hypes['dataset']['root_dir']
-        modal_type: str = hypes['dataset']['type']
-
-        sample_names = os.listdir(os.path.join(dataset_path, modal_type, 'OCTA'))
-        sample_names = natsort.natsorted(sample_names)
-        sample_size = len(sample_names)
-        idx_list = [i for i in range(sample_size)]
-        # 得到相对位置
-        images_2d_list = np.array(
-            [os.path.join('Projection Maps', f'OCTA_{"3M" if modal_type.lower() == "3mm" else "6M"}', 'Projection Maps',
-                          'OCTA(ILM_OPL)', file.split(".")[0] + ".bmp") for file in sample_names]
-        )
-
-        images_oct_list = np.array(
-            [os.path.join('OCT', file) for file in sample_names]
-        )
-
-        images_octa_list = np.array(
-            [os.path.join('OCTA', file) for file in sample_names]
-        )
-
-        label_list = np.array(
-            [os.path.join('GT_Label', file.split(".")[0] + ".bmp") for file in sample_names]
-        )
-
-        json_dict = {}
-        for index, (train_index, test_index) in enumerate(kf.split(idx_list)):  # 调用split方法切分数据
-            json_dict[f'fold-{index + 1}'] = {}
-            json_dict[f'fold-{index + 1}']['train_2d_images'] = list(images_2d_list[train_index])
-            json_dict[f'fold-{index + 1}']['train_oct_images'] = list(images_oct_list[train_index])
-            json_dict[f'fold-{index + 1}']['train_octa_images'] = list(images_octa_list[train_index])
-            json_dict[f'fold-{index + 1}']['train_label'] = list(label_list[train_index])
-
-            json_dict[f'fold-{index + 1}']['test_2d_images'] = list(images_2d_list[test_index])
-            json_dict[f'fold-{index + 1}']['test_oct_images'] = list(images_oct_list[test_index])
-            json_dict[f'fold-{index + 1}']['test_octa_images'] = list(images_octa_list[test_index])
-            json_dict[f'fold-{index + 1}']['test_label'] = list(label_list[test_index])
-            print('train_index:%s , test_index: %s ' % (train_index, test_index))
-        file_txt = json.dumps(json_dict)
-        with open(os.path.join(dataset_path, modal_type, 'fold.json'), 'w', encoding='utf-8') as f:
-            f.write(file_txt)
 
     def process_data(self, label_dir_name='GT_Label'):
         dataset_list = {}
